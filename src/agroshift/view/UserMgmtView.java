@@ -8,6 +8,7 @@ package agroshift.view;
 import agroshift.controller.UserController;
 import agroshift.model.Usuario;
 import agroshift.util.MyConnectionDB;
+import agroshift.util.UserLogin;
 import java.awt.Color;
 import java.awt.Font;
 import java.sql.Connection;
@@ -183,6 +184,11 @@ public class UserMgmtView extends javax.swing.JFrame {
         });
 
         btnVolver.setText("VOLVER");
+        btnVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVolverActionPerformed(evt);
+            }
+        });
 
         btnActualizar.setText("ACTUALIZAR");
         btnActualizar.addActionListener(new java.awt.event.ActionListener() {
@@ -192,6 +198,11 @@ public class UserMgmtView extends javax.swing.JFrame {
         });
 
         btnEliminar.setText("ELIMINAR");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         jLabel7.setFont(new java.awt.Font("Dialog", 0, 9)); // NOI18N
         jLabel7.setText("(Colocar aquí el nuevo nombre del usuario a actualizar)");
@@ -351,79 +362,187 @@ public class UserMgmtView extends javax.swing.JFrame {
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         if("".equals(txtNewUsername.getText())){ //SI ESTA VACIO HAGO UN UPDATE SIN EL USERNAME
             if("".equals(String.valueOf(txtPassword.getPassword()))){
+                PreparedStatement ps = null;
+                MyConnectionDB mycon = new MyConnectionDB();
+                Connection conn = mycon.getMyConnection();
                 try{
-                    PreparedStatement ps = null;
-                    MyConnectionDB mycon = new MyConnectionDB();
-                    Connection conn = mycon.getMyConnection();
                     String sql = "UPDATE usuario SET alias = ?, is_admin= ? WHERE username = ?";
                     ps = conn.prepareStatement(sql);
                     ps.setString(1, txtAlias.getText());
                     ps.setBoolean(2, chkIsAdmin.isSelected());
-                    ps.setString(3, txtUsername.getText());
+                    if(tblUsuarios.getSelectedRow() != -1){
+                       ps.setString(3, tblUsuarios.getValueAt(tblUsuarios.getSelectedRow(),0).toString()); 
+                    } else{
+                        JOptionPane.showMessageDialog(null, "SELECCIONE DE LA TABLA EL USUARIO A ACTUALIZAR");
+                        return;
+                    } 
                     ps.executeUpdate();
                     JOptionPane.showMessageDialog(null, "USUARIO ACTUALIZADO CON ÉXTIO");
+                    UserMgmtView newForm = new UserMgmtView();
+                    newForm.setVisible(true);
+                    this.dispose();
                 } catch(Exception e){
                     JOptionPane.showMessageDialog(null, "ERROR AL ACTUALIZAR USUARIO");
                     JOptionPane.showMessageDialog(null, e.getMessage());
+                } finally{
+                    try {
+                        ps.close();
+                    } catch (Exception e) {
+                    }
+                    try {
+                        conn.close();
+                    } catch (Exception e) {
+                    }
                 }
             } else{
-                try{
-                    PreparedStatement ps = null;
-                    MyConnectionDB mycon = new MyConnectionDB();
-                    Connection conn = mycon.getMyConnection();
+                PreparedStatement ps = null;
+                MyConnectionDB mycon = new MyConnectionDB();
+                Connection conn = mycon.getMyConnection();
+                try{                
                     String sql = "UPDATE usuario SET clave = ?, alias = ?, is_admin= ? WHERE username = ?";
                     ps = conn.prepareStatement(sql);
                     ps.setString(1, String.valueOf(txtPassword.getPassword()));
                     ps.setString(2, txtAlias.getText());
                     ps.setBoolean(3, chkIsAdmin.isSelected());
-                    ps.setString(4, txtUsername.getText());
+                    if(tblUsuarios.getSelectedRow() != -1){
+                       ps.setString(4, tblUsuarios.getValueAt(tblUsuarios.getSelectedRow(),0).toString()); 
+                    } else{
+                        JOptionPane.showMessageDialog(null, "SELECCIONE DE LA TABLA EL USUARIO A ACTUALIZAR");
+                        return;
+                    } 
                     ps.executeUpdate();
                     JOptionPane.showMessageDialog(null, "USUARIO ACTUALIZADO CON ÉXTIO");
+                    UserMgmtView newForm = new UserMgmtView();
+                    newForm.setVisible(true);
+                    this.dispose();
                 } catch(Exception e){
                 JOptionPane.showMessageDialog(null, "ERROR AL ACTUALIZAR USUARIO");
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                }finally{
+                    try {
+                        ps.close();
+                    } catch (Exception e) {
+                    }
+                    try {
+                        conn.close();
+                    } catch (Exception e) {
+                    }
                 }
             }
             
         } else {                                
             if("".equals(String.valueOf(txtPassword.getPassword()))){
+                PreparedStatement ps = null;
+                MyConnectionDB mycon = new MyConnectionDB();
+                Connection conn = mycon.getMyConnection();
                 try{
-                    PreparedStatement ps = null;
-                    MyConnectionDB mycon = new MyConnectionDB();
-                    Connection conn = mycon.getMyConnection();
                     String sql = "UPDATE usuario SET username = ?, alias = ?, is_admin= ? WHERE username = ?";
                     ps = conn.prepareStatement(sql);
                     ps.setString(1, txtNewUsername.getText());
                     ps.setString(2, txtAlias.getText());
                     ps.setBoolean(3, chkIsAdmin.isSelected());
-                    ps.setString(4, txtUsername.getText());
+                    if(tblUsuarios.getSelectedRow() != -1){
+                       ps.setString(4, tblUsuarios.getValueAt(tblUsuarios.getSelectedRow(),0).toString()); 
+                    } else{
+                        JOptionPane.showMessageDialog(null, "SELECCIONE DE LA TABLA EL USUARIO A ACTUALIZAR");
+                        return;
+                    } 
                     ps.executeUpdate();
                     JOptionPane.showMessageDialog(null, "USUARIO ACTUALIZADO CON ÉXTIO");
+                    UserMgmtView newForm = new UserMgmtView();
+                    newForm.setVisible(true);
+                    this.dispose();
                 } catch(Exception e){
                     JOptionPane.showMessageDialog(null, "ERROR AL ACTUALIZAR USUARIO");
                     JOptionPane.showMessageDialog(null, e.getMessage());
+                } finally{
+                    try {
+                        ps.close();
+                    } catch (Exception e) {
+                    }
+                    try {
+                        conn.close();
+                    } catch (Exception e) {
+                    }
                 }
             } else{
-                try{
-                    PreparedStatement ps = null;
+                PreparedStatement ps = null;
                     MyConnectionDB mycon = new MyConnectionDB();
                     Connection conn = mycon.getMyConnection();
+                try{ 
                     String sql = "UPDATE usuario SET username = ?, clave = ?, alias = ?, is_admin= ? WHERE username = ?";
                     ps = conn.prepareStatement(sql);
                     ps.setString(1, txtNewUsername.getText());
                     ps.setString(2, String.valueOf(txtPassword.getPassword()));
                     ps.setString(3, txtAlias.getText());
                     ps.setBoolean(4, chkIsAdmin.isSelected());
-                    ps.setString(5, txtUsername.getText());
+                    if(tblUsuarios.getSelectedRow() != -1){
+                       ps.setString(5, tblUsuarios.getValueAt(tblUsuarios.getSelectedRow(),0).toString()); 
+                    } else{
+                        JOptionPane.showMessageDialog(null, "SELECCIONE DE LA TABLA EL USUARIO A ACTUALIZAR");
+                        return;
+                    } 
                     ps.executeUpdate();
                     JOptionPane.showMessageDialog(null, "USUARIO ACTUALIZADO CON ÉXTIO");
+                    UserMgmtView newForm = new UserMgmtView();
+                    newForm.setVisible(true);
+                    this.dispose();
                 } catch(Exception e){
                 JOptionPane.showMessageDialog(null, "ERROR AL ACTUALIZAR USUARIO");
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                } finally{
+                    try {
+                        ps.close();
+                    } catch (Exception e) {
+                    }
+                    try {
+                        conn.close();
+                    } catch (Exception e) {
+                    }
                 }
             }
         }
     }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
+        MainView form = new MainView();
+        form.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnVolverActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+            PreparedStatement ps = null;
+            MyConnectionDB mycon = new MyConnectionDB();
+            Connection con = mycon.getMyConnection();
+            try{
+                int FILA = tblUsuarios.getSelectedRow();
+                String sql = "DELETE FROM usuario WHERE username = ?";
+                ps = con.prepareStatement(sql);
+                if(FILA != -1){
+                    if(!tblUsuarios.getValueAt(FILA, 0).toString().equals(UserLogin.getInstance().username)){
+                        ps.setString(1,tblUsuarios.getValueAt(FILA, 0).toString());
+                        ps.executeUpdate();
+                        JOptionPane.showMessageDialog(null, "USUARIO ELIMINADO CON EXITO");
+                        UserMgmtView newForm = new UserMgmtView();
+                        newForm.setVisible(true);
+                        this.dispose();
+                    } else JOptionPane.showMessageDialog(null, "USTED NO PUEDE ELIMINARSE A SI MISMO, ACASO QUIERE HACER EXPLOTAR AL UNIVERSO?");   
+                } else JOptionPane.showMessageDialog(null, "SELECCIONE EL USUARIO A ELIMINAR");
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "ERROR AL ELIMINAR EL USUARIO");
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            } finally{
+                try {
+                    ps.close();
+                } catch (Exception e) {
+                }
+                try {
+                    con.close();
+                } catch (Exception e) {
+                }
+            }
+
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
     /**
      * @param args the command line arguments
