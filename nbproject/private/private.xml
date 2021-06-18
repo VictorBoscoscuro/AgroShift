@@ -3,13 +3,25 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/view/LoginView.java</file>
             <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/view/AdminMainView.java</file>
-            <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/util/MyConnectionDB.java</file>
+            <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/view/AlertsView.java</file>
+            <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/view/ExpiredAlertsView.java</file>
+            <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/view/RentsView.java</file>
             <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/controller/UserController.java</file>
+            <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/model/Alerta.java</file>
+            <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/util/UserLogin.java</file>
+            <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/view/AgroMachineryView.java</file>
+            <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/view/CurrentsAlertView.java</file>
+            <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/view/SetAlertsView.java</file>
+            <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/view/MainView.java</file>
+            <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/view/EmployeesView.java</file>
+            <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/view/VisualizeAlertView.java</file>
+            <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/util/MyConnectionDB.java</file>
             <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/model/Usuario.java</file>
+            <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/controller/AlertController.java</file>
             <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/controller/LoginController.java</file>
             <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/view/UserMgmtView.java</file>
-            <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/util/UserLogin.java</file>
         </group>
     </open-files>
 </project-private>
