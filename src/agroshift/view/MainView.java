@@ -90,8 +90,8 @@ public class MainView extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         AlertController contr = new AlertController();
-        AlertsView form = new AlertsView(contr.obtenerAlertasEnCurso());
-        form.setVisible(true);
+        //AlertsView form = new AlertsView(contr.obtenerAlertasEnCurso());
+        //form.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton5ActionPerformed
 

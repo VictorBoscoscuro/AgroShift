@@ -23,7 +23,7 @@ public class AlertsView extends javax.swing.JFrame {
         initComponents();
         alertasEnCurso = lista;
         AlertController contr = new AlertController();
-        alertasVencidas = contr.getExpiredAlerts();
+        //alertasVencidas = contr.getExpiredAlerts();
         if(alertasVencidas.size() > 0){
             btnAlertasVencidas.setEnabled(true);
         }
@@ -117,7 +117,7 @@ public class AlertsView extends javax.swing.JFrame {
                             .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(btnAlertasVencidas, javax.swing.GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE))
+                    .addComponent(btnAlertasVencidas, javax.swing.GroupLayout.DEFAULT_SIZE, 393, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -147,22 +147,18 @@ public class AlertsView extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton4)
                     .addComponent(jButton5))
-                .addContainerGap(58, Short.MAX_VALUE))
+                .addContainerGap(107, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -185,8 +181,8 @@ public class AlertsView extends javax.swing.JFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         int FILA = tblAlertaEnCurso.getSelectedRow();
         if(FILA != -1){
-            VisualizeAlertView form = new VisualizeAlertView(alertasEnCurso.get(FILA).getId_Alert());
-            form.setVisible(true);
+            //VisualizeAlertView form = new VisualizeAlertView(alertasEnCurso.get(FILA).getId_Alert());
+            //form.setVisible(true);
             this.dispose();  
         } else JOptionPane.showMessageDialog(null, "SELECCIONA ALGO PAPÁ");
         
@@ -194,8 +190,8 @@ public class AlertsView extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         AlertController contr = new AlertController();
-        CurrentsAlertView form = new CurrentsAlertView(contr.getCurrentsAlert());
-        form.setVisible(true);
+        //CurrentsAlertView form = new CurrentsAlertView(contr.getCurrentsAlert());
+        //form.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -229,7 +225,7 @@ public class AlertsView extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AlertsView().setVisible(true);
+                //new AlertsView().setVisible(true);
             }
         });
     }

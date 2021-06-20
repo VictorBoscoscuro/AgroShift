@@ -11,6 +11,7 @@ import agroshift.util.MyConnectionDB;
 import agroshift.util.UserLogin;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.sql.Connection;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -171,7 +172,19 @@ public class UserMgmtView extends javax.swing.JFrame {
 
         jLabel4.setText("Alias");
 
+        txtUsername.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtUsernameKeyPressed(evt);
+            }
+        });
+
         jLabel5.setText("Nuevo nombre");
+
+        txtNewUsername.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtNewUsernameKeyPressed(evt);
+            }
+        });
 
         chkIsAdmin.setBackground(new java.awt.Color(153, 255, 102));
         chkIsAdmin.setText("Administrador");
@@ -321,7 +334,11 @@ public class UserMgmtView extends javax.swing.JFrame {
     }//GEN-LAST:event_tblUsuariosMouseClicked
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
-        if("" != txtUsername.getText()){
+        if(txtUsername.getText().contains(" ")){
+            JOptionPane.showMessageDialog(null, "El nombre de usuario no debe contener espacios");
+            txtUsername.requestFocus();
+        }
+        else if(txtUsername.getText().length() > 0){
             if("" != String.valueOf(txtPassword.getPassword())){
                 //ACA HABRIA QUE VALIDAR LA CONTRASEÑA
                 if("" != txtAlias.getText()){
@@ -430,74 +447,79 @@ public class UserMgmtView extends javax.swing.JFrame {
                 }
             }
             
-        } else {                                
-            if("".equals(String.valueOf(txtPassword.getPassword()))){
-                PreparedStatement ps = null;
-                MyConnectionDB mycon = new MyConnectionDB();
-                Connection conn = mycon.getMyConnection();
-                try{
-                    String sql = "UPDATE usuario SET username = ?, alias = ?, is_admin= ? WHERE username = ?";
-                    ps = conn.prepareStatement(sql);
-                    ps.setString(1, txtNewUsername.getText());
-                    ps.setString(2, txtAlias.getText());
-                    ps.setBoolean(3, chkIsAdmin.isSelected());
-                    if(tblUsuarios.getSelectedRow() != -1){
-                       ps.setString(4, tblUsuarios.getValueAt(tblUsuarios.getSelectedRow(),0).toString()); 
-                    } else{
-                        JOptionPane.showMessageDialog(null, "SELECCIONE DE LA TABLA EL USUARIO A ACTUALIZAR");
-                        return;
-                    } 
-                    ps.executeUpdate();
-                    JOptionPane.showMessageDialog(null, "USUARIO ACTUALIZADO CON ÉXTIO");
-                    UserMgmtView newForm = new UserMgmtView();
-                    newForm.setVisible(true);
-                    this.dispose();
-                } catch(Exception e){
-                    JOptionPane.showMessageDialog(null, "ERROR AL ACTUALIZAR USUARIO");
-                    JOptionPane.showMessageDialog(null, e.getMessage());
-                } finally{
-                    try {
-                        ps.close();
-                    } catch (Exception e) {
-                    }
-                    try {
-                        conn.close();
-                    } catch (Exception e) {
-                    }
-                }
-            } else{
-                PreparedStatement ps = null;
+        } else {                    //UPDATE CON NUEVO USERNAME                              
+            if(txtNewUsername.getText().contains(" ")){
+                JOptionPane.showMessageDialog(null, "El nuevo nombre de usuario no puede contener espacios");
+                txtNewUsername.requestFocus();
+            }else{                  //NO TIENE ESPACIOS
+                if("".equals(String.valueOf(txtPassword.getPassword()))){   //MISMA CONTRASEÑA
+                    PreparedStatement ps = null;
                     MyConnectionDB mycon = new MyConnectionDB();
                     Connection conn = mycon.getMyConnection();
-                try{ 
-                    String sql = "UPDATE usuario SET username = ?, clave = ?, alias = ?, is_admin= ? WHERE username = ?";
-                    ps = conn.prepareStatement(sql);
-                    ps.setString(1, txtNewUsername.getText());
-                    ps.setString(2, String.valueOf(txtPassword.getPassword()));
-                    ps.setString(3, txtAlias.getText());
-                    ps.setBoolean(4, chkIsAdmin.isSelected());
-                    if(tblUsuarios.getSelectedRow() != -1){
-                       ps.setString(5, tblUsuarios.getValueAt(tblUsuarios.getSelectedRow(),0).toString()); 
-                    } else{
-                        JOptionPane.showMessageDialog(null, "SELECCIONE DE LA TABLA EL USUARIO A ACTUALIZAR");
-                        return;
-                    } 
-                    ps.executeUpdate();
-                    JOptionPane.showMessageDialog(null, "USUARIO ACTUALIZADO CON ÉXTIO");
-                    UserMgmtView newForm = new UserMgmtView();
-                    newForm.setVisible(true);
-                    this.dispose();
-                } catch(Exception e){
-                JOptionPane.showMessageDialog(null, "ERROR AL ACTUALIZAR USUARIO");
-                JOptionPane.showMessageDialog(null, e.getMessage());
-                } finally{
-                    try {
-                        ps.close();
-                    } catch (Exception e) {
+                    try{
+                        String sql = "UPDATE usuario SET username = ?, alias = ?, is_admin= ? WHERE username = ?";
+                        ps = conn.prepareStatement(sql);
+                        ps.setString(1, txtNewUsername.getText());
+                        ps.setString(2, txtAlias.getText());
+                        ps.setBoolean(3, chkIsAdmin.isSelected());
+                        if(tblUsuarios.getSelectedRow() != -1){
+                           ps.setString(4, tblUsuarios.getValueAt(tblUsuarios.getSelectedRow(),0).toString()); 
+                        } else{
+                            JOptionPane.showMessageDialog(null, "SELECCIONE DE LA TABLA EL USUARIO A ACTUALIZAR");
+                            return;
+                        } 
+                        ps.executeUpdate();
+                        JOptionPane.showMessageDialog(null, "USUARIO ACTUALIZADO CON ÉXTIO");
+                        UserMgmtView newForm = new UserMgmtView();
+                        newForm.setVisible(true);
+                        this.dispose();
+                    } catch(Exception e){
+                        JOptionPane.showMessageDialog(null, "ERROR AL ACTUALIZAR USUARIO");
+                        JOptionPane.showMessageDialog(null, e.getMessage());
+                    } finally{
+                        try {
+                            ps.close();
+                        } catch (Exception e) {
+                        }
+                        try {
+                            conn.close();
+                        } catch (Exception e) {
+                        }
                     }
-                    try {
-                        conn.close();
-                    } catch (Exception e) {
+                } else{                         //NUEVA CONTRASEÑA
+                    PreparedStatement ps = null;
+                        MyConnectionDB mycon = new MyConnectionDB();
+                        Connection conn = mycon.getMyConnection();
+                    try{ 
+                        String sql = "UPDATE usuario SET username = ?, clave = ?, alias = ?, is_admin= ? WHERE username = ?";
+                        ps = conn.prepareStatement(sql);
+                        ps.setString(1, txtNewUsername.getText());
+                        ps.setString(2, String.valueOf(txtPassword.getPassword()));
+                        ps.setString(3, txtAlias.getText());
+                        ps.setBoolean(4, chkIsAdmin.isSelected());
+                        if(tblUsuarios.getSelectedRow() != -1){
+                           ps.setString(5, tblUsuarios.getValueAt(tblUsuarios.getSelectedRow(),0).toString()); 
+                        } else{
+                            JOptionPane.showMessageDialog(null, "SELECCIONE DE LA TABLA EL USUARIO A ACTUALIZAR");
+                            return;
+                        } 
+                        ps.executeUpdate();
+                        JOptionPane.showMessageDialog(null, "USUARIO ACTUALIZADO CON ÉXTIO");
+                        UserMgmtView newForm = new UserMgmtView();
+                        newForm.setVisible(true);
+                        this.dispose();
+                    } catch(Exception e){
+                    JOptionPane.showMessageDialog(null, "ERROR AL ACTUALIZAR USUARIO");
+                    JOptionPane.showMessageDialog(null, e.getMessage());
+                    } finally{
+                        try {
+                            ps.close();
+                        } catch (Exception e) {
+                        }
+                        try {
+                            conn.close();
+                        } catch (Exception e) {
+                        }
                     }
                 }
             }
@@ -543,6 +565,22 @@ public class UserMgmtView extends javax.swing.JFrame {
             }
 
     }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void txtUsernameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsernameKeyPressed
+        if(evt.getKeyChar() == 32){
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(null, "No se permiten espacios");
+        }
+    }//GEN-LAST:event_txtUsernameKeyPressed
+
+    private void txtNewUsernameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNewUsernameKeyPressed
+        if(evt.getKeyChar() == 32){
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(null, "No se permiten espacios");
+        }
+    }//GEN-LAST:event_txtNewUsernameKeyPressed
 
     /**
      * @param args the command line arguments

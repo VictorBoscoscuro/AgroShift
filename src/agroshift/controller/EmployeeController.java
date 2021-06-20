@@ -5,45 +5,43 @@
  */
 package agroshift.controller;
 
-import agroshift.model.Usuario;
+import agroshift.model.Empleado;
 import agroshift.util.MyConnectionDB;
-
-import java.awt.List;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.sql.PreparedStatement;
+import java.sql.Connection;
+import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author victo
  */
-public class UserController {
+public class EmployeeController {
     
-    public ArrayList<Usuario> obtenerUsuarios(){
-        ArrayList<Usuario> lista = new ArrayList<>();
+    public static ArrayList<Empleado> obtenerEmpleados(){
         PreparedStatement ps = null;
-        String sql = "SELECT * FROM usuario ORDER BY username";
-        ResultSet rs = null;
         MyConnectionDB mycon = new MyConnectionDB();
         Connection con = mycon.getMyConnection();
-        
-        try {
+        ResultSet rs = null;
+        ArrayList<Empleado> empleados = new ArrayList<>();
+        try{            
+            String sql = "SELECT nombre_completo,documento,numero_empleado,rol FROM empleado ORDER BY nombre_completo";
             ps = con.prepareStatement(sql);
+            
             rs = ps.executeQuery();
             
             while(rs.next()){
-              Usuario usuario = new Usuario();
-              usuario.setUsername(rs.getString("username"));
-              usuario.setAlias(rs.getString("alias"));
-              usuario.setId_usuario(rs.getLong("id_usuario"));
-              usuario.setPassword(rs.getString("clave"));
-              usuario.setIsAdmin(rs.getBoolean("is_admin"));
-              lista.add(usuario);       
+              Empleado empleado = new Empleado();
+              empleado.setDocumento(rs.getString("documento"));
+              empleado.setNombre(rs.getString("nombre_completo"));
+              empleado.setRol(rs.getString("rol"));
+              empleado.setNumero(rs.getString("numero_empleado"));
+
+              empleados.add(empleado);       
             }
-            return lista;
-                
+            return empleados;
+            
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null,"Error "+e.getMessage());
         } finally{
@@ -57,6 +55,6 @@ public class UserController {
                 con.close();
             } catch(Exception e){}
         }
-        return lista;
+        return empleados;
     }
 }

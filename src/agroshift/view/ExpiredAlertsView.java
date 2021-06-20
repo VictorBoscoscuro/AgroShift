@@ -17,7 +17,7 @@ public class ExpiredAlertsView extends javax.swing.JFrame {
     public ExpiredAlertsView() {
         initComponents();
     }
-    public ExpiredAlertsView(ArrayList)
+    //public ExpiredAlertsView(ArrayList)
 
     /**
      * This method is called from within the constructor to initialize the form.

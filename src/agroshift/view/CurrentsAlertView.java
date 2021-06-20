@@ -17,9 +17,9 @@ public class CurrentsAlertView extends javax.swing.JFrame {
     public CurrentsAlertView() {
         initComponents();
     }
-    public CurrentsAlertView(ArrayList<Alerta> lista){
+    //public CurrentsAlertView(ArrayList<Alerta> lista){
         
-    }
+    //}
 
     /**
      * This method is called from within the constructor to initialize the form.
