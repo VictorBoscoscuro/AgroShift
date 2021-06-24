@@ -5,7 +5,9 @@
  */
 package agroshift.view;
 
+import agroshift.controller.EmployeeController;
 import java.awt.Component;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 /**
@@ -57,7 +59,6 @@ public class NewEmployeeView extends javax.swing.JFrame {
         txtMonthregistr = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
         txtYearRegistr = new javax.swing.JTextField();
-        chkTodayRegistr = new javax.swing.JCheckBox();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
 
@@ -122,6 +123,11 @@ public class NewEmployeeView extends javax.swing.JFrame {
         jLabel7.setText("Alta");
 
         btnCreate.setText("CREAR");
+        btnCreate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCreateActionPerformed(evt);
+            }
+        });
 
         btnBack.setText("VOLVER");
 
@@ -186,9 +192,6 @@ public class NewEmployeeView extends javax.swing.JFrame {
             }
         });
 
-        chkTodayRegistr.setBackground(new java.awt.Color(153, 204, 255));
-        chkTodayRegistr.setText("Hoy");
-
         jLabel14.setFont(new java.awt.Font("Clarendon Lt BT", 2, 11)); // NOI18N
         jLabel14.setText("dd-MM-yyyy");
 
@@ -249,8 +252,7 @@ public class NewEmployeeView extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtYearBirth, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(30, 30, 30)
-                                .addComponent(jLabel14))
-                            .addComponent(chkTodayRegistr, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(jLabel14)))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -296,9 +298,7 @@ public class NewEmployeeView extends javax.swing.JFrame {
                     .addComponent(txtYearRegistr, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel13)
                     .addComponent(jLabel15))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(chkTodayRegistr)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -369,6 +369,86 @@ public class NewEmployeeView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtYearRegistrActionPerformed
 
+    private String validarCampos(){
+        if(txtName.getText().length() > 1){
+            if(txtDocument.getText().length() > 5){
+                if(txtNumber.getText().length() > 0 && txtNumber.getText().length() < 5){
+                    String aux = txtNumber.getText();
+                    txtNumber.setText("0".repeat(4-aux.length())+aux);
+                    return "OK";
+                } return "Ingrese un numero valido (maximo 4 caracteres)";
+            } else{
+                return "Ingrese un documento valido";
+            }
+        } else{
+            return "Ingrese un nombre";
+        }
+    }
+    
+    private boolean validarFechas(){
+        return true;        //implementar
+    }
+    
+    private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
+        String validate = validarCampos();
+        if(validate == "OK"){
+            if(validarFechas()){
+                String documento = txtDocument.getText();
+                String nombre = txtName.getText().toUpperCase();
+                String dia_nacim="";
+                if(txtDayBirth.getText().length() == 1){
+                    dia_nacim = "0"+txtDayBirth.getText();
+                } else dia_nacim = txtDayBirth.getText();
+                String mes_nacim="";
+                if(txtMonthBirth.getText().length() == 1){
+                    mes_nacim = "0"+txtMonthBirth.getText();
+                } else mes_nacim = txtMonthBirth.getText();
+                String anio_nacim = "";
+                if(txtYearBirth.getText().length() != 4){
+                    JOptionPane.showMessageDialog(null, "Ingrese el año correctamente");
+                    txtYearBirth.requestFocus();
+                    return;
+                } else{
+                    anio_nacim = txtYearBirth.getText();
+                }
+                String nacimiento = anio_nacim+"-"+mes_nacim+"-"+dia_nacim;
+                
+                String dia_alta = "";
+                if(txtDayRegistr.getText().length() == 1){
+                    dia_alta = "0"+txtDayRegistr.getText();
+                } else dia_alta = txtDayRegistr.getText();
+                String mes_alta = "";
+                if(txtMonthregistr.getText().length() == 1){
+                    mes_alta = "0"+txtMonthregistr.getText();
+                } else mes_alta = txtMonthregistr.getText();
+                String anio_alta = "";
+                if(txtYearRegistr.getText().length() != 4){
+                    JOptionPane.showMessageDialog(null, "Ingrese el año correctamente");
+                    txtYearRegistr.requestFocus();
+                    return;
+                } else{
+                    anio_alta = txtYearRegistr.getText();
+                }
+                String alta = anio_alta+"-"+mes_alta+"-"+dia_alta;
+                
+                String numero = txtNumber.getText();
+                String rol = "";
+                if(!"".equals(txtRole.getText())){
+                    rol = txtRole.getText();
+                }
+                
+                EmployeeController.nuevoEmpleado(documento,nombre,nacimiento,alta, numero, rol);
+                EmployeesView form = new EmployeesView();
+                this.dispose();
+            } else{
+                JOptionPane.showMessageDialog(null, "Error en las fechas");
+                return;
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, validate);
+        }
+    }//GEN-LAST:event_btnCreateActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -408,7 +488,6 @@ public class NewEmployeeView extends javax.swing.JFrame {
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnCreate;
     private javax.swing.JButton btnRebootInfo;
-    private javax.swing.JCheckBox chkTodayRegistr;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

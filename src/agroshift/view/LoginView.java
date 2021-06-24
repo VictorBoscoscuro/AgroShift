@@ -6,8 +6,13 @@
 package agroshift.view;
 
 import agroshift.controller.LoginController;
+import agroshift.util.MyConnectionDB;
 import agroshift.util.UserLogin;
 import javax.swing.JOptionPane;
+import java.sql.PreparedStatement;
+import java.sql.Connection;
+import java.time.LocalDate;
+import java.sql.ResultSet;
 
 /**
  *
@@ -18,8 +23,35 @@ public class LoginView extends javax.swing.JFrame {
     /**
      * Creates new form LoginView
      */
+    private int cantidadAlertasRevision(){
+        PreparedStatement ps = null;
+        MyConnectionDB mycon = new MyConnectionDB();
+        Connection con = mycon.getMyConnection();
+        String hoy = LocalDate.now().toString();
+        ResultSet rs = null;
+        try{
+            String sql = "SELECT COUNT(*) AS cantidad FROM alerta WHERE inicio_vigencia < ? AND fin_vigencia > ?";
+            ps = con.prepareCall(sql);
+            ps.setString(1, hoy);
+            ps.setString(2, hoy);
+            rs = ps.executeQuery();
+            if(rs.next()){
+                return rs.getInt("cantidad");
+            } else return 0;
+        } catch(Exception e){
+            JOptionPane.showMessageDialog(null,"Error al obtener la cantidad de alertas");
+            return 0;
+        }
+        
+    }
+    
     public LoginView() {
         initComponents();
+        int alerts = cantidadAlertasRevision();
+        if(alerts > 0){
+            InitCountAlertsView form = new InitCountAlertsView(alerts);
+            form.setVisible(true);
+        }
         setTitle("Por favor ingrese sus credenciales");
         setLocationRelativeTo(null);
     }

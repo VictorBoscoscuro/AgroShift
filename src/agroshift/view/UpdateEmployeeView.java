@@ -5,10 +5,8 @@
  */
 package agroshift.view;
 
-import agroshift.util.MyConnectionDB;
+import agroshift.controller.EmployeeController;
 import java.awt.Component;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
@@ -24,19 +22,17 @@ public class UpdateEmployeeView extends javax.swing.JFrame {
     public UpdateEmployeeView() {
         initComponents();
     }
-    public UpdateEmployeeView(String nombre, String documento, String numero, String rol) {
+    public UpdateEmployeeView(String documento, String nombre, String numero, String rol) {
         initComponents();
-        this.nombre=nombre;
         this.documento=documento;
-        this.numero=numero;
-        this.rol=rol;
+        txtDocument.setText(documento);
+        txtName.setText(nombre);
+        txtNumber.setText(numero);
+        txtRole.setText(rol);
     }
-    private String nombre;
-    private String documento;
-    private String numero;
-    private String rol;
-    
 
+    private String documento;
+    
     public String validarCampos(){       //OK o MENSAJE_DE_ERROR
         if(txtName.getText().length() > 0){
             if(txtDocument.getText().length() > 6){
@@ -243,46 +239,18 @@ public class UpdateEmployeeView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
-        if("OK".equals(validarCampos())){
-            PreparedStatement ps = null;
-            MyConnectionDB mycon = new MyConnectionDB();
-            Connection conn = mycon.getMyConnection();
-            try{
-                String sql = "";
-                if(txtRole.getText() != ""){    //SI EL ROL ESTA VACIO, LA BD LO CARGA CON "SIN DEFINIR"
-                   sql = "UPDATE empleado SET nombre_completo = ?, documento = ?, numero_empleado = ? WHERE documento = ?";
-                   ps = conn.prepareStatement(sql);
-                   ps.setString(1, txtName.getText());
-                   ps.setString(2, txtDocument.getText());
-                   ps.setString(3, txtNumber.getText());
-                   ps.setString(4, documento);
-                }else{
-                    sql = "UPDATE empleado SET nombre_completo = ?, documento = ?, numero_empleado = ?, rol = ? WHERE documento = ?";
-                    ps = conn.prepareStatement(sql);
-                    ps.setString(1, txtName.getText());
-                    ps.setString(2, txtDocument.getText());
-                    ps.setString(3, txtNumber.getText());
-                    ps.setString(4, txtRole.getText());
-                    ps.setString(5, documento);
-                }
-                ps.executeUpdate();
-                JOptionPane.showMessageDialog(null, "EMPLEADO ACTUALIZADO CON ÉXTIO");
-                UserMgmtView newForm = new UserMgmtView();
-                newForm.setVisible(true);
+        String resp = validarCampos();
+        if("OK".equals(resp)){
+            if(EmployeeController.actualizarEmpleado(documento, txtName.getText(),txtDocument.getText(), txtRole.getText(), txtNumber.getText())){
+                JOptionPane.showMessageDialog(null, "Empleado actualizado con éxito");
+                EmployeesView form = new EmployeesView();
+                form.setVisible(true);
                 this.dispose();
-            } catch(Exception e){
-                JOptionPane.showMessageDialog(null, "ERROR AL ACTUALIZAR USUARIO");
-                JOptionPane.showMessageDialog(null, e.getMessage());
-            } finally{
-                try {
-                    ps.close();
-                } catch (Exception e) {
-                }
-                try {
-                    conn.close();
-                } catch (Exception e) {
-                }
+            } else{
+                
             }
+        } else{
+            JOptionPane.showMessageDialog(null, resp);
         }
     }//GEN-LAST:event_btnCreateActionPerformed
 

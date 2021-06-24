@@ -36,6 +36,7 @@ public class MainView extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
+        btnModificarClave = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -57,6 +58,11 @@ public class MainView extends javax.swing.JFrame {
         jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(92, 236, 235, 152));
 
         jButton4.setText("EMPLEADOS");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 236, 235, 152));
 
         jButton5.setText("ALERTAS");
@@ -69,6 +75,14 @@ public class MainView extends javax.swing.JFrame {
 
         jButton6.setText("0");
         jPanel1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 440, 55, -1));
+
+        btnModificarClave.setText("Modificar clave");
+        btnModificarClave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarClaveActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnModificarClave, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 470, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -94,6 +108,18 @@ public class MainView extends javax.swing.JFrame {
         //form.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void btnModificarClaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarClaveActionPerformed
+        NewPasswordView form = new NewPasswordView();
+        form.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnModificarClaveActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        EmployeesView form = new EmployeesView();
+        form.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -131,6 +157,7 @@ public class MainView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnModificarClave;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;

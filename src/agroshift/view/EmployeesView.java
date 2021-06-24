@@ -97,7 +97,6 @@ public class EmployeesView extends javax.swing.JFrame {
         tblEmployees = new javax.swing.JTable();
         btnBack = new javax.swing.JButton();
         btnNew = new javax.swing.JButton();
-        btnFilter = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
         btnSeeInfo = new javax.swing.JButton();
@@ -151,11 +150,14 @@ public class EmployeesView extends javax.swing.JFrame {
             }
         });
 
-        btnFilter.setText("FILTRAR");
-
         btnDelete.setText("ELIMINAR");
 
         btnUpdate.setText("ACTUALIZAR");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
+            }
+        });
 
         btnSeeInfo.setText("VER INFORMACION");
 
@@ -178,8 +180,7 @@ public class EmployeesView extends javax.swing.JFrame {
                         .addComponent(btnDelete)
                         .addGap(248, 248, 248)
                         .addComponent(btnSeeInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 264, Short.MAX_VALUE)
-                        .addComponent(btnFilter)))
+                        .addGap(0, 340, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -191,7 +192,6 @@ public class EmployeesView extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnFilter)
                     .addComponent(btnDelete)
                     .addComponent(btnSeeInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 132, Short.MAX_VALUE)
@@ -221,6 +221,13 @@ public class EmployeesView extends javax.swing.JFrame {
         form.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnNewActionPerformed
+
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        int FILA = tblEmployees.getSelectedRow();
+        UpdateEmployeeView form = new UpdateEmployeeView(tblEmployees.getValueAt(FILA, 1).toString(),tblEmployees.getValueAt(FILA, 0).toString(),tblEmployees.getValueAt(FILA, 2).toString(),tblEmployees.getValueAt(FILA, 3).toString());
+        form.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnUpdateActionPerformed
 
 
     
@@ -262,7 +269,6 @@ public class EmployeesView extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnDelete;
-    private javax.swing.JButton btnFilter;
     private javax.swing.JButton btnNew;
     private javax.swing.JButton btnSeeInfo;
     private javax.swing.JButton btnUpdate;
