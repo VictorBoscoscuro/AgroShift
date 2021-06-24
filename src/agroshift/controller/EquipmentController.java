@@ -19,7 +19,7 @@ import javax.swing.JOptionPane;
  */
 public class EquipmentController {
    
-    public ArrayList<EquipoAgricola> obtenerTodosEquipos(){
+    public static ArrayList<EquipoAgricola> obtenerTodosEquipos(){
         PreparedStatement ps = null;
         MyConnectionDB mycon = new MyConnectionDB();
         Connection con = mycon.getMyConnection();
@@ -48,4 +48,51 @@ public class EquipmentController {
         }
     }
     
+    public static String obtenerEstadoPorId(Long id_estado){
+        
+        PreparedStatement ps = null;
+        MyConnectionDB mycon = new MyConnectionDB();
+        Connection con = mycon.getMyConnection();
+        ResultSet rs = null;
+        try{
+            String sql = "SELECT nombre_estado FROM estado_agricola WHERE id_estado = ?";
+            ps = con.prepareStatement(sql);
+            ps.setLong(1, id_estado);
+            rs = ps.executeQuery();
+           
+            if(rs.next()){
+                return rs.getString("nombre_estado");
+            } else{
+                JOptionPane.showMessageDialog(null, "Error al obtener un estado de un equipo"); //NO DEBERIA PASAR
+                return null;
+            }
+        } catch(Exception e){
+                JOptionPane.showMessageDialog(null, "Error al obtener un estado de un equipo"); //NO DEBERIA PASAR
+            return null;
+        }
+    }
+    
+    public static String obtenerTipoPorId(Long id_tipo){
+        
+        PreparedStatement ps = null;
+        MyConnectionDB mycon = new MyConnectionDB();
+        Connection con = mycon.getMyConnection();
+        ResultSet rs = null;
+        try{
+            String sql = "SELECT nombre FROM tipo_agricola WHERE id_tipo = ?";
+            ps = con.prepareStatement(sql);
+            ps.setLong(1, id_tipo);
+            rs = ps.executeQuery();
+           
+            if(rs.next()){
+                return rs.getString("nombre");
+            } else{
+                JOptionPane.showMessageDialog(null, "Error al obtener un tipo de un equipo"); //NO DEBERIA PASAR
+                return null;
+            }
+        } catch(Exception e){
+                JOptionPane.showMessageDialog(null, "Error al obtener un tipo de un equipo"); //NO DEBERIA PASAR
+            return null;
+        }
+    }
 }
