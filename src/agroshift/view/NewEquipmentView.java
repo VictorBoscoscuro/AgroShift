@@ -5,6 +5,12 @@
  */
 package agroshift.view;
 
+import agroshift.controller.EquipmentController;
+import agroshift.model.EquipoAgricola;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author victo
@@ -16,8 +22,37 @@ public class NewEquipmentView extends javax.swing.JFrame {
      */
     public NewEquipmentView() {
         initComponents();
+        setTitle("Nuevo equipo");
+        setLocationRelativeTo(null);
+        cargarTipos();
+        cargarEstados();
+        cargarAdquisicionFechaHoy();      
     }
 
+    private void cargarAdquisicionFechaHoy(){
+        LocalDate ld = LocalDate.now();
+        String ldStr = ld.toString();
+        String anio = ldStr.substring(0, 4);
+        String mes = ldStr.substring(5,7);
+        String dia = ldStr.substring(8);
+        txtDiaAdq.setText(dia);
+        txtMesAdq.setText(mes);
+        txtAnioAdq.setText(anio);
+    }
+    
+    private void cargarTipos(){
+        ArrayList<String> tipos = EquipmentController.obtenerTodosTipos();
+        for(String tipo:tipos){
+            cbxTypes.addItem(tipo);
+        }
+    }
+    private void cargarEstados(){
+        ArrayList<String> estados = EquipmentController.obtenerTodosEstados();
+        for(String est:estados){
+            cbxStates.addItem(est);
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -28,40 +63,40 @@ public class NewEquipmentView extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        cbxTypes = new javax.swing.JComboBox<>();
+        cbxStates = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
         btnNew = new javax.swing.JLabel();
         btnBack1 = new javax.swing.JLabel();
+        txtMarca = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        txtModelo = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        txtCodigo = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        txtAnioAdq = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        txtDiaAdq = new javax.swing.JTextField();
+        txtDescripcion = new javax.swing.JTextField();
+        txtMesAdq = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(196, 60, 160, -1));
+        cbxTypes.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jPanel1.add(cbxTypes, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 60, 190, -1));
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 430, 160, -1));
-
-        jTextField1.setText("jTextField1");
-        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 170, -1, -1));
-
-        jTextField2.setText("jTextField2");
-        jPanel1.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 280, -1, -1));
-
-        jTextField3.setText("jTextField3");
-        jPanel1.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 220, -1, -1));
+        cbxStates.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jPanel1.add(cbxStates, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 60, 200, -1));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("TIPO");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 550, -1));
+        jLabel2.setText("MARCA");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 550, -1));
 
         btnNew.setIcon(new javax.swing.ImageIcon(getClass().getResource("/agroshift/img/save_75.png"))); // NOI18N
         btnNew.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -78,6 +113,69 @@ public class NewEquipmentView extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btnBack1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 620, -1, -1));
+
+        txtMarca.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 13)); // NOI18N
+        txtMarca.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtMarca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtMarcaActionPerformed(evt);
+            }
+        });
+        jPanel1.add(txtMarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 150, 230, 40));
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("TIPO                                      ESTADO");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 550, -1));
+
+        txtModelo.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
+        txtModelo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jPanel1.add(txtModelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 240, 230, 40));
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("MODELO");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 550, -1));
+
+        txtCodigo.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
+        txtCodigo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jPanel1.add(txtCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 340, 230, 40));
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("CODIGO");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 310, 550, -1));
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("ADQUISICION");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 510, 550, -1));
+
+        txtAnioAdq.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
+        txtAnioAdq.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jPanel1.add(txtAnioAdq, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 550, 70, 40));
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setText("DESCRIPCION");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 410, 550, -1));
+
+        txtDiaAdq.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
+        txtDiaAdq.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jPanel1.add(txtDiaAdq, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 550, 50, 40));
+
+        txtDescripcion.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
+        txtDescripcion.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jPanel1.add(txtDescripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 440, 230, 40));
+
+        txtMesAdq.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
+        txtMesAdq.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jPanel1.add(txtMesAdq, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 550, 50, 40));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/agroshift/img/fondo_maquinaria2.jpg"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 550, -1));
@@ -96,10 +194,44 @@ public class NewEquipmentView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private EquipoAgricola asignarDatosEquipo() throws Exception{
+        try{
+            EquipoAgricola equipoAgricola = new EquipoAgricola();
+            equipoAgricola.setAdquisicion(txtAnioAdq.getText()+"-"+txtMesAdq.getText()+"-"+txtDiaAdq.getText());
+            equipoAgricola.setCodigo(txtCodigo.getText());
+            equipoAgricola.setMarca(txtMarca.getText());
+            if(!"".equals(txtModelo.getText())){
+                equipoAgricola.setModelo(txtModelo.getText());
+            }
+            if(!"".equals(txtDescripcion.getText())){
+                equipoAgricola.setDescripcion(txtDescripcion.getText());
+            }
+            equipoAgricola.setId_estado(EquipmentController.obtenerIdEstadoPorNombre(cbxStates.getSelectedItem().toString()));
+            equipoAgricola.setId_tipo(EquipmentController.obtenerIdTipoPorNombre(cbxTypes.getSelectedItem().toString()));
+            return equipoAgricola;
+        } catch(Exception e){
+            throw new Exception();
+        }
+    }
+    //IMPLEMENTAR
+    private boolean validarCampos(){
+        return true;
+    }
+    
     private void btnNewMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNewMouseClicked
-        MainView form = new MainView();
-        form.setVisible(true);
-        this.dispose();
+        if(validarCampos()){
+            try{
+                EquipoAgricola eq = asignarDatosEquipo();
+                if(EquipmentController.agregarEquipo(eq)){
+                    EquipmentView form = new EquipmentView();
+                    form.setVisible(true);
+                    this.dispose();
+                }
+            } catch(Exception e){
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            }
+        }
+        
     }//GEN-LAST:event_btnNewMouseClicked
 
     private void btnBack1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBack1MouseClicked
@@ -107,6 +239,10 @@ public class NewEquipmentView extends javax.swing.JFrame {
         form.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnBack1MouseClicked
+
+    private void txtMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMarcaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtMarcaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -146,13 +282,22 @@ public class NewEquipmentView extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnBack1;
     private javax.swing.JLabel btnNew;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JComboBox<String> cbxStates;
+    private javax.swing.JComboBox<String> cbxTypes;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField txtAnioAdq;
+    private javax.swing.JTextField txtCodigo;
+    private javax.swing.JTextField txtDescripcion;
+    private javax.swing.JTextField txtDiaAdq;
+    private javax.swing.JTextField txtMarca;
+    private javax.swing.JTextField txtMesAdq;
+    private javax.swing.JTextField txtModelo;
     // End of variables declaration//GEN-END:variables
 }

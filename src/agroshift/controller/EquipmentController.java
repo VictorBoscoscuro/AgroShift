@@ -48,6 +48,76 @@ public class EquipmentController {
         }
     }
     
+    public static boolean agregarEquipo(EquipoAgricola equipo){
+        PreparedStatement ps = null;
+        MyConnectionDB mycon = new MyConnectionDB();
+        Connection con = mycon.getMyConnection();
+        
+        try{
+            String sql = "INSERT INTO equipo_agricola VALUES(null,?,?,?,?,?,?,?)";
+            ps = con.prepareStatement(sql);
+            ps.setString(1, equipo.getCodigo());
+            ps.setString(2, equipo.getAdquisicion());
+            ps.setString(3, equipo.getMarca());
+            ps.setString(4, equipo.getModelo());
+            ps.setString(5, equipo.getDescripcion());
+            ps.setLong(6, equipo.getId_tipo());
+            ps.setLong(7, equipo.getId_estado());
+            
+            ps.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Equipo agregado con éxito");
+            return true;
+        } catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Error al agregar el nuevo equipo: "+e.getMessage());
+            return false;
+        }
+    }
+    
+    public static ArrayList<String> obtenerTodosEstados(){
+        PreparedStatement ps = null;
+        MyConnectionDB mycon = new MyConnectionDB();
+        Connection con = mycon.getMyConnection();
+        ResultSet rs = null;
+        ArrayList<String> estados = new ArrayList<>();
+        try{
+            String sql = "SELECT nombre_estado FROM estado_equipo ORDER BY id_estado";
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+           
+            while(rs.next()){
+                estados.add(rs.getString("nombre_estado"));
+            }
+            return estados;
+        } catch(Exception e){
+                JOptionPane.showMessageDialog(null, "Error al obtener un estado de un equipo"); //NO DEBERIA PASAR
+            return estados;
+        }
+    }
+    
+    public static Long obtenerIdEstadoPorNombre(String nombre){
+        
+        PreparedStatement ps = null;
+        MyConnectionDB mycon = new MyConnectionDB();
+        Connection con = mycon.getMyConnection();
+        ResultSet rs = null;
+        try{
+            String sql = "SELECT id_estado FROM estado_equipo WHERE nombre_estado = ?";
+            ps = con.prepareStatement(sql);
+            ps.setString(1, nombre);
+            rs = ps.executeQuery();
+           
+            if(rs.next()){
+                return rs.getLong("id_estado");
+            } else{
+                JOptionPane.showMessageDialog(null, "Error al obtener un estado de un equipo"); //NO DEBERIA PASAR
+                return null;
+            }
+        } catch(Exception e){
+                JOptionPane.showMessageDialog(null, "Error al obtener un estado de un equipo"); //NO DEBERIA PASAR
+            return null;
+        }
+    }
+    
     public static String obtenerEstadoPorId(Long id_estado){
         
         PreparedStatement ps = null;
@@ -55,7 +125,7 @@ public class EquipmentController {
         Connection con = mycon.getMyConnection();
         ResultSet rs = null;
         try{
-            String sql = "SELECT nombre_estado FROM estado_agricola WHERE id_estado = ?";
+            String sql = "SELECT nombre_estado FROM estado_equipo WHERE id_estado = ?";
             ps = con.prepareStatement(sql);
             ps.setLong(1, id_estado);
             rs = ps.executeQuery();
@@ -72,6 +142,30 @@ public class EquipmentController {
         }
     }
     
+    public static Long obtenerIdTipoPorNombre(String nombre){
+        
+        PreparedStatement ps = null;
+        MyConnectionDB mycon = new MyConnectionDB();
+        Connection con = mycon.getMyConnection();
+        ResultSet rs = null;
+        try{
+            String sql = "SELECT id_tipo FROM tipo_equipo WHERE nombre = ?";
+            ps = con.prepareStatement(sql);
+            ps.setString(1, nombre);
+            rs = ps.executeQuery();
+           
+            if(rs.next()){
+                return rs.getLong("id_tipo");
+            } else{
+                JOptionPane.showMessageDialog(null, "Error al obtener un tipo de un equipo"); //NO DEBERIA PASAR
+                return null;
+            }
+        } catch(Exception e){
+                JOptionPane.showMessageDialog(null, "Error al obtener un tipo de un equipo"); //NO DEBERIA PASAR
+            return null;
+        }
+    }
+    
     public static String obtenerTipoPorId(Long id_tipo){
         
         PreparedStatement ps = null;
@@ -79,7 +173,7 @@ public class EquipmentController {
         Connection con = mycon.getMyConnection();
         ResultSet rs = null;
         try{
-            String sql = "SELECT nombre FROM tipo_agricola WHERE id_tipo = ?";
+            String sql = "SELECT nombre FROM tipo_equipo WHERE id_tipo = ?";
             ps = con.prepareStatement(sql);
             ps.setLong(1, id_tipo);
             rs = ps.executeQuery();
@@ -95,4 +189,26 @@ public class EquipmentController {
             return null;
         }
     }
+    
+    public static ArrayList<String> obtenerTodosTipos(){
+        PreparedStatement ps = null;
+        MyConnectionDB mycon = new MyConnectionDB();
+        Connection con = mycon.getMyConnection();
+        ResultSet rs = null;
+        ArrayList<String> tipos = new ArrayList<>();
+        try{
+            String sql = "SELECT nombre FROM tipo_equipo ORDER BY nombre";
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+           
+            while(rs.next()){
+                tipos.add(rs.getString("nombre"));
+            }
+            return tipos;
+        } catch(Exception e){
+                JOptionPane.showMessageDialog(null, "Error al obtener los tipos de equipos"); //NO DEBERIA PASAR
+            return tipos;
+        }
+    }
+    
 }

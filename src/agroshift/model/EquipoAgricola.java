@@ -15,6 +15,7 @@ public class EquipoAgricola {
     private String marca;
     private String modelo;
     private String descripcion;
+    private String adquisicion;
     private Long id_estado;
     private Long id_tipo;
 
@@ -56,6 +57,14 @@ public class EquipoAgricola {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public String getAdquisicion() {
+        return adquisicion;
+    }
+
+    public void setAdquisicion(String adquisicion) {
+        this.adquisicion = adquisicion;
     }
 
     public Long getId_estado() {
