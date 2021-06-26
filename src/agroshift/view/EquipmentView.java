@@ -5,18 +5,14 @@
  */
 package agroshift.view;
 
-import agroshift.controller.ClientController;
 import agroshift.controller.EquipmentController;
-import agroshift.model.Cliente;
 import agroshift.model.EquipoAgricola;
 import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Connection;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 /**
  *
@@ -31,14 +27,14 @@ public class EquipmentView extends javax.swing.JFrame {
         initComponents();
         setTitle("Equipo Agricola");
         setLocationRelativeTo(null);
-        cargarEquipoTabla(EquipmentController.obtenerTodosEquipos());
+        cargarEquipoTabla();
     }
 
     ArrayList<EquipoAgricola> equipos = new ArrayList<>();
     
     private void formatoTabla(){
                 
-        int[] weights = {225,170,215,205};
+        int[] weights = {25,25,20,25};
             
         for(int i = 0; i < tblEquipos.getColumnCount(); i++){
             tblEquipos.getColumnModel().getColumn(i).setPreferredWidth(weights[i]);
@@ -49,15 +45,27 @@ public class EquipmentView extends javax.swing.JFrame {
         headerRenderer.setForeground(Color.BLACK);
         headerRenderer.setFont(new Font("Segoe UI",Font.BOLD,14));
         headerRenderer.setOpaque(true);
-        headerRenderer.setForeground(Color.BLACK);
+        headerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
   
         for (int i = 0; i < tblEquipos.getModel().getColumnCount(); i++) {          //Recorro y se lo aplico a cada header
             tblEquipos.getColumnModel().getColumn(i).setHeaderRenderer(headerRenderer);    
         }
+        
+        DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
+        cellRenderer.setBackground(new Color(244, 244, 230));
+        cellRenderer.setForeground(Color.BLACK);
+        cellRenderer.setFont(new Font("Segoe UI",Font.PLAIN,13));
+        cellRenderer.setOpaque(true);
+        cellRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+        
+        for (int i = 0; i < tblEquipos.getColumnCount(); i++) {          //Recorro y se lo aplico a cada header
+            tblEquipos.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);    
+        }
     }
     
     
-    private void cargarEquipoTabla(ArrayList<EquipoAgricola> listaEquipo){
+    private void cargarEquipoTabla(){
+        equipos = EquipmentController.obtenerTodosEquipos();
         int numberColumns = 4;
         try{
             DefaultTableModel model = new DefaultTableModel(){
@@ -73,7 +81,6 @@ public class EquipmentView extends javax.swing.JFrame {
             model.addColumn("Estado");
             
             formatoTabla();
-            
             
             for(EquipoAgricola equipo: equipos){
                 Object[] rows = new Object[numberColumns];
@@ -116,13 +123,13 @@ public class EquipmentView extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnFilter.setText("FILTRAR");
-        jPanel1.add(btnFilter, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 240, 130, 40));
+        jPanel1.add(btnFilter, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 240, 130, 40));
 
         cbxEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(cbxEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 90, 230, -1));
+        jPanel1.add(cbxEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 230, -1));
 
         cbxTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(cbxTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 40, 230, -1));
+        jPanel1.add(cbxTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 230, -1));
 
         btnBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/agroshift/img/back-arrow-75.png"))); // NOI18N
         btnBack.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -133,15 +140,30 @@ public class EquipmentView extends javax.swing.JFrame {
         jPanel1.add(btnBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 560, -1, -1));
 
         btnNew.setIcon(new javax.swing.ImageIcon(getClass().getResource("/agroshift/img/add_eq_agr.png"))); // NOI18N
+        btnNew.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnNewMouseClicked(evt);
+            }
+        });
         jPanel1.add(btnNew, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 500, 170, 140));
 
         btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/agroshift/img/delete_eq_agr.png"))); // NOI18N
-        jPanel1.add(btnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 510, 180, 130));
+        btnDelete.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnDeleteMouseClicked(evt);
+            }
+        });
+        jPanel1.add(btnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 510, 180, 130));
 
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/agroshift/img/view_details_50.png"))); // NOI18N
-        jLabel3.setText("VER DETALLES");
+        jLabel3.setText("EDITAR DATOS");
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel3MouseClicked(evt);
+            }
+        });
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 380, -1, -1));
 
         tblEquipos.setModel(new javax.swing.table.DefaultTableModel(
@@ -179,9 +201,11 @@ public class EquipmentView extends javax.swing.JFrame {
             }
         });
         tblEquipos.setRowHeight(27);
+        tblEquipos.setSelectionBackground(new java.awt.Color(255, 255, 204));
+        tblEquipos.setSelectionForeground(new java.awt.Color(0, 0, 0));
         jScrollPane1.setViewportView(tblEquipos);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(333, 20, 620, 350));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(263, 20, 690, 350));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/agroshift/img/fondo_maquinaria1.jpg"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -205,6 +229,35 @@ public class EquipmentView extends javax.swing.JFrame {
         form.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnBackMouseClicked
+
+    private void btnNewMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNewMouseClicked
+        NewEmployeeView form = new NewEmployeeView();
+        form.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnNewMouseClicked
+
+    private void btnDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeleteMouseClicked
+        int FILA = tblEquipos.getSelectedRow();
+        if(FILA != -1){
+            EquipoAgricola equipo = equipos.get(FILA);
+            if(EquipmentController.eliminarEquipo(equipo.getId_equipo())){
+                EquipmentView form = new EquipmentView();
+                form.setVisible(true);
+                this.dispose();
+            }
+        } else{
+            JOptionPane.showMessageDialog(null, "Seleccione el equipo a eliminar");
+        }
+    }//GEN-LAST:event_btnDeleteMouseClicked
+
+    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+        int FILA = tblEquipos.getSelectedRow();
+        if(FILA != -1){
+            UpdateEquipmentView form = new UpdateEquipmentView(equipos.get(FILA));
+            form.setVisible(true);
+            this.dispose();
+        }else JOptionPane.showMessageDialog(null, "Seleccione el equipo!");
+    }//GEN-LAST:event_jLabel3MouseClicked
 
     /**
      * @param args the command line arguments

@@ -16,36 +16,35 @@ import javax.swing.JOptionPane;
  *
  * @author victo
  */
-public class NewEquipmentView extends javax.swing.JFrame {
+public class UpdateEquipmentView extends javax.swing.JFrame {
 
     /**
-     * Creates new form NewEquipmentView
+     * Creates new form SeeEquipmentView
      */
-    public NewEquipmentView() {
+    public UpdateEquipmentView() {
         initComponents();
-        setTitle("Nuevo equipo");
+        setTitle("Ver detalles del equipo");
+        setLocationRelativeTo(null);    
+    }
+    
+    public UpdateEquipmentView(EquipoAgricola equipoAgricola) {
+        initComponents();
+        setTitle("Ver detalles del equipo");
         setLocationRelativeTo(null);
-        cargarTipos();
         cargarEstados();
-        cargarAdquisicionFechaHoy();      
+        cargarTipos();
+        cargarDatos(equipoAgricola);      
+        equipoSeleccionado = equipoAgricola;
     }
-
-    private void cargarAdquisicionFechaHoy(){
-        LocalDate ld = LocalDate.now();
-        String ldStr = ld.toString();
-        String anio = ldStr.substring(0, 4);
-        String mes = ldStr.substring(5,7);
-        String dia = ldStr.substring(8);
-        txtDiaAdq.setText(dia);
-        txtMesAdq.setText(mes);
-        txtAnioAdq.setText(anio);
-    }
+    
+    EquipoAgricola equipoSeleccionado = new EquipoAgricola();
     
     private void cargarTipos(){
         ArrayList<String> tipos = EquipmentController.obtenerTodosTipos();
         for(String tipo:tipos){
             cbxTypes.addItem(tipo);
         }
+        cbxTypes.setSelectedItem(EquipmentController.obtenerTipoPorId(equipoSeleccionado.getId_tipo()));
     }
     private void cargarEstados(){
         ArrayList<String> estados = EquipmentController.obtenerTodosEstados();
@@ -54,6 +53,18 @@ public class NewEquipmentView extends javax.swing.JFrame {
         }
     }
     
+    private void cargarDatos(EquipoAgricola equipo){
+        txtAnioAdq.setText(equipo.getAdquisicion().substring(0,4));
+        txtMesAdq.setText(equipo.getAdquisicion().substring(5,7));
+        txtDiaAdq.setText(equipo.getAdquisicion().substring(8));
+        txtCodigo.setText(equipo.getCodigo());
+        txtDescripcion.setText(equipo.getDescripcion());
+        txtMarca.setText(equipo.getMarca());
+        txtModelo.setText(equipo.getModelo());
+        cbxStates.setSelectedItem(EquipmentController.obtenerEstadoPorId(equipo.getId_estado()));
+        cbxTypes.setSelectedItem(EquipmentController.obtenerTipoPorId(equipo.getId_tipo()));
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -195,26 +206,16 @@ public class NewEquipmentView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private EquipoAgricola asignarDatosEquipo() throws Exception{
-        try{
-            EquipoAgricola equipoAgricola = new EquipoAgricola();
-            equipoAgricola.setAdquisicion(txtAnioAdq.getText()+"-"+txtMesAdq.getText()+"-"+txtDiaAdq.getText());
-            equipoAgricola.setCodigo(txtCodigo.getText());
-            equipoAgricola.setMarca(txtMarca.getText());
-            if(!"".equals(txtModelo.getText())){
-                equipoAgricola.setModelo(txtModelo.getText());
-            }
-            if(!"".equals(txtDescripcion.getText())){
-                equipoAgricola.setDescripcion(txtDescripcion.getText());
-            }
-            equipoAgricola.setId_estado(EquipmentController.obtenerIdEstadoPorNombre(cbxStates.getSelectedItem().toString()));
-            equipoAgricola.setId_tipo(EquipmentController.obtenerIdTipoPorNombre(cbxTypes.getSelectedItem().toString()));
-            return equipoAgricola;
-        } catch(Exception e){
-            throw new Exception();
-        }
-    }
-    
+    private void btnBack1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBack1MouseClicked
+        EquipmentView form = new EquipmentView();
+        form.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnBack1MouseClicked
+
+    private void txtMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMarcaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtMarcaActionPerformed
+
     private boolean fechaMenorIgualHoy(String dia, String mes, String anio){
         try{
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -273,28 +274,18 @@ public class NewEquipmentView extends javax.swing.JFrame {
     private void btnNewMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNewMouseClicked
         if(validarCampos()){
             try{
-                EquipoAgricola eq = asignarDatosEquipo();
-                if(EquipmentController.agregarEquipo(eq)){
+                if(EquipmentController.actualizarEquipo(equipoSeleccionado)){
                     EquipmentView form = new EquipmentView();
                     form.setVisible(true);
                     this.dispose();
+                } else{
+                    JOptionPane.showMessageDialog(null, "Error al actualizar el equipo");
                 }
             } catch(Exception e){
-                JOptionPane.showMessageDialog(null, e.getMessage());
+                JOptionPane.showMessageDialog(null, "Error al actualizar el equipo. "+e.getMessage());
             }
         }
-        
     }//GEN-LAST:event_btnNewMouseClicked
-
-    private void btnBack1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBack1MouseClicked
-        EquipmentView form = new EquipmentView();
-        form.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btnBack1MouseClicked
-
-    private void txtMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMarcaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtMarcaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -313,20 +304,21 @@ public class NewEquipmentView extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(NewEquipmentView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UpdateEquipmentView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(NewEquipmentView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UpdateEquipmentView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(NewEquipmentView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UpdateEquipmentView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(NewEquipmentView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UpdateEquipmentView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new NewEquipmentView().setVisible(true);
+                new UpdateEquipmentView().setVisible(true);
             }
         });
     }

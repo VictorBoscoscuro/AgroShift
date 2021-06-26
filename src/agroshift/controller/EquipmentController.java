@@ -39,6 +39,7 @@ public class EquipmentController {
                 equipo.setId_tipo(rs.getLong("id_tipo"));
                 equipo.setMarca(rs.getString("marca"));
                 equipo.setModelo(rs.getString("modelo"));
+                equipo.setAdquisicion(rs.getDate("fecha_adquisicion").toString());
                 equipos.add(equipo);
             }
             return equipos;
@@ -69,6 +70,32 @@ public class EquipmentController {
             return true;
         } catch(Exception e){
             JOptionPane.showMessageDialog(null, "Error al agregar el nuevo equipo: "+e.getMessage());
+            return false;
+        }
+    }
+    
+    public static boolean actualizarEquipo(EquipoAgricola equipo){
+        PreparedStatement ps = null;
+        MyConnectionDB mycon = new MyConnectionDB();
+        Connection con = mycon.getMyConnection();
+        
+        try{
+            String sql = "UPDATE equipo_agricola SET codigo_equipo = ?, fecha_adquisicion = ?, marca = ?, modelo = ?, descripcion = ?, id_tipo = ?, id_estado = ? WHERE id_equipo = ?";
+            ps = con.prepareStatement(sql);
+            ps.setString(1, equipo.getCodigo());
+            ps.setString(2, equipo.getAdquisicion());
+            ps.setString(3, equipo.getMarca());
+            ps.setString(4, equipo.getModelo());
+            ps.setString(5, equipo.getDescripcion());
+            ps.setLong(6, equipo.getId_tipo());
+            ps.setLong(7, equipo.getId_estado());
+            ps.setLong(8, equipo.getId_equipo());
+            
+            ps.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Equipo actualizado con éxito");
+            return true;
+        } catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Error actualizando el equipo: "+e.getMessage());
             return false;
         }
     }
@@ -133,11 +160,11 @@ public class EquipmentController {
             if(rs.next()){
                 return rs.getString("nombre_estado");
             } else{
-                JOptionPane.showMessageDialog(null, "Error al obtener un estado de un equipo"); //NO DEBERIA PASAR
+                JOptionPane.showMessageDialog(null, "obtenerEstadoPorId() no next RS"); //NO DEBERIA PASAR
                 return null;
             }
         } catch(Exception e){
-                JOptionPane.showMessageDialog(null, "Error al obtener un estado de un equipo"); //NO DEBERIA PASAR
+                JOptionPane.showMessageDialog(null, "obtenerEstadoPorId() ex"); //NO DEBERIA PASAR
             return null;
         }
     }
@@ -157,16 +184,16 @@ public class EquipmentController {
             if(rs.next()){
                 return rs.getLong("id_tipo");
             } else{
-                JOptionPane.showMessageDialog(null, "Error al obtener un tipo de un equipo"); //NO DEBERIA PASAR
+                JOptionPane.showMessageDialog(null, "obtenerIdTipoPorNombre() no next RS"); //NO DEBERIA PASAR
                 return null;
             }
         } catch(Exception e){
-                JOptionPane.showMessageDialog(null, "Error al obtener un tipo de un equipo"); //NO DEBERIA PASAR
+                JOptionPane.showMessageDialog(null, "obtenerIdTipoPorNombre() ex"); //NO DEBERIA PASAR
             return null;
         }
     }
     
-    public static String obtenerTipoPorId(Long id_tipo){
+    public static String obtenerTipoPorId(Long id_tipo){        //ARREGLAR
         
         PreparedStatement ps = null;
         MyConnectionDB mycon = new MyConnectionDB();
@@ -181,11 +208,11 @@ public class EquipmentController {
             if(rs.next()){
                 return rs.getString("nombre");
             } else{
-                JOptionPane.showMessageDialog(null, "Error al obtener un tipo de un equipo"); //NO DEBERIA PASAR
+                JOptionPane.showMessageDialog(null, "obtenerTipoPorId() no next RS"); //NO DEBERIA PASAR
                 return null;
             }
         } catch(Exception e){
-                JOptionPane.showMessageDialog(null, "Error al obtener un tipo de un equipo"); //NO DEBERIA PASAR
+                JOptionPane.showMessageDialog(null, "obtenerTipoPorId() ex"); //NO DEBERIA PASAR
             return null;
         }
     }
@@ -208,6 +235,24 @@ public class EquipmentController {
         } catch(Exception e){
                 JOptionPane.showMessageDialog(null, "Error al obtener los tipos de equipos"); //NO DEBERIA PASAR
             return tipos;
+        }
+    }
+    
+    public static boolean eliminarEquipo(Long id){
+        PreparedStatement ps = null;
+        MyConnectionDB mycon = new MyConnectionDB();
+        Connection con = mycon.getMyConnection();
+
+        try{
+            String sql = "DELETE FROM equipo_agricola WHERE id_equipo = ?";
+            ps = con.prepareStatement(sql);
+            ps.setLong(1, id);
+            ps.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Equipo eliminado con éxito");
+            return false;
+        } catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Error al obtener los tipos de equipos"); //NO DEBERIA PASAR
+            return false;
         }
     }
     
