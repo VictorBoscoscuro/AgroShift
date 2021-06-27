@@ -20,7 +20,8 @@ public class tests {
         LocalDate parsedDate = LocalDate.parse(date,formatter);
         System.out.println(parsedDate+"\n"+date);
         if(parsedDate.isAfter(LocalDate.now())){
-            System.out.println("OK");
+            System.out.println("OK----");
         }
+        
     }
 }

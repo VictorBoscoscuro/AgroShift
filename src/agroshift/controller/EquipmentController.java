@@ -46,6 +46,16 @@ public class EquipmentController {
         } catch(Exception e){
             JOptionPane.showMessageDialog(null, "Error al obtener los equipos");
             return equipos;
+        } finally{
+            try{
+                rs.close();
+            } catch(Exception e){}
+            try{
+                ps.close();
+            } catch(Exception e){}
+            try{
+                con.close();
+            } catch(Exception e){}
         }
     }
     
@@ -71,6 +81,13 @@ public class EquipmentController {
         } catch(Exception e){
             JOptionPane.showMessageDialog(null, "Error al agregar el nuevo equipo: "+e.getMessage());
             return false;
+        } finally{
+            try{
+                ps.close();
+            } catch(Exception e){}
+            try{
+                con.close();
+            } catch(Exception e){}
         }
     }
     
@@ -97,6 +114,13 @@ public class EquipmentController {
         } catch(Exception e){
             JOptionPane.showMessageDialog(null, "Error actualizando el equipo: "+e.getMessage());
             return false;
+        } finally{
+            try{
+                ps.close();
+            } catch(Exception e){}
+            try{
+                con.close();
+            }catch(Exception e){}
         }
     }
     
@@ -118,6 +142,16 @@ public class EquipmentController {
         } catch(Exception e){
                 JOptionPane.showMessageDialog(null, "Error al obtener un estado de un equipo"); //NO DEBERIA PASAR
             return estados;
+        } finally{
+            try{
+                rs.close();
+            } catch(Exception e){}
+            try{
+                ps.close();
+            } catch(Exception e){}
+            try{
+                con.close();
+            } catch(Exception e){}
         }
     }
     
@@ -142,6 +176,16 @@ public class EquipmentController {
         } catch(Exception e){
                 JOptionPane.showMessageDialog(null, "Error al obtener un estado de un equipo"); //NO DEBERIA PASAR
             return null;
+        } finally{
+            try{
+                rs.close();
+            }catch(Exception e){}
+            try{
+                ps.close();
+            }catch(Exception e){}
+            try{
+                con.close();
+            }catch(Exception e){}
         }
     }
     
@@ -166,6 +210,16 @@ public class EquipmentController {
         } catch(Exception e){
                 JOptionPane.showMessageDialog(null, "obtenerEstadoPorId() ex"); //NO DEBERIA PASAR
             return null;
+        } finally{
+            try{
+                rs.close();
+            } catch(Exception e){}
+            try{
+                ps.close();
+            } catch(Exception e){}
+            try{
+                con.close();
+            } catch(Exception e){}
         }
     }
     
@@ -190,6 +244,16 @@ public class EquipmentController {
         } catch(Exception e){
                 JOptionPane.showMessageDialog(null, "obtenerIdTipoPorNombre() ex"); //NO DEBERIA PASAR
             return null;
+        } finally{
+            try{
+                rs.close();
+            } catch(Exception e){}
+            try{
+                ps.close();
+            } catch(Exception e){}
+            try{
+                con.close();
+            } catch(Exception e){}
         }
     }
     
@@ -214,6 +278,16 @@ public class EquipmentController {
         } catch(Exception e){
                 JOptionPane.showMessageDialog(null, "obtenerTipoPorId() ex"); //NO DEBERIA PASAR
             return null;
+        } finally{
+            try{
+                rs.close();
+            } catch(Exception e){}
+            try{
+                ps.close();
+            } catch(Exception e){}
+            try{
+                con.close();
+            } catch(Exception e){}
         }
     }
     
@@ -235,6 +309,16 @@ public class EquipmentController {
         } catch(Exception e){
                 JOptionPane.showMessageDialog(null, "Error al obtener los tipos de equipos"); //NO DEBERIA PASAR
             return tipos;
+        } finally{
+            try{
+                rs.close();
+            } catch(Exception e){}
+            try{
+                ps.close();
+            } catch(Exception e){}
+            try{
+                con.close();
+            } catch(Exception e){}
         }
     }
     
@@ -253,6 +337,13 @@ public class EquipmentController {
         } catch(Exception e){
             JOptionPane.showMessageDialog(null, "Error al obtener los tipos de equipos"); //NO DEBERIA PASAR
             return false;
+        } finally{
+            try{
+                ps.close();
+            } catch(Exception e){}
+            try{
+                con.close();
+            } catch(Exception e){}
         }
     }
     

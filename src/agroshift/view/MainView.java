@@ -35,8 +35,8 @@ public class MainView extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
         btnModificarClave = new javax.swing.JButton();
+        lblCantidadAlertas = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -73,9 +73,6 @@ public class MainView extends javax.swing.JFrame {
         });
         jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 460, 96, 54));
 
-        jButton6.setText("0");
-        jPanel1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 440, 55, -1));
-
         btnModificarClave.setText("Modificar clave");
         btnModificarClave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -83,6 +80,9 @@ public class MainView extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btnModificarClave, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 470, -1, -1));
+
+        lblCantidadAlertas.setText("jLabel1");
+        jPanel1.add(lblCantidadAlertas, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 440, 50, 20));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -163,7 +163,7 @@ public class MainView extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lblCantidadAlertas;
     // End of variables declaration//GEN-END:variables
 }

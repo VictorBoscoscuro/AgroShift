@@ -28,6 +28,8 @@ public class EquipmentView extends javax.swing.JFrame {
         setTitle("Equipo Agricola");
         setLocationRelativeTo(null);
         cargarEquipoTabla();
+        cargarEstados();
+        cargarTipos();
     }
 
     ArrayList<EquipoAgricola> equipos = new ArrayList<>();
@@ -63,7 +65,6 @@ public class EquipmentView extends javax.swing.JFrame {
         }
     }
     
-    
     private void cargarEquipoTabla(){
         equipos = EquipmentController.obtenerTodosEquipos();
         int numberColumns = 4;
@@ -97,6 +98,19 @@ public class EquipmentView extends javax.swing.JFrame {
         }
     
     }
+    
+     private void cargarTipos(){
+        ArrayList<String> tipos = EquipmentController.obtenerTodosTipos();
+        for(String tipo:tipos){
+            cbxTipo.addItem(tipo);
+        }
+    }
+    private void cargarEstados(){
+        ArrayList<String> estados = EquipmentController.obtenerTodosEstados();
+        for(String est:estados){
+            cbxEstado.addItem(est);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -125,10 +139,8 @@ public class EquipmentView extends javax.swing.JFrame {
         btnFilter.setText("FILTRAR");
         jPanel1.add(btnFilter, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 240, 130, 40));
 
-        cbxEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jPanel1.add(cbxEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 230, -1));
 
-        cbxTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jPanel1.add(cbxTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 230, -1));
 
         btnBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/agroshift/img/back-arrow-75.png"))); // NOI18N
@@ -231,7 +243,7 @@ public class EquipmentView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBackMouseClicked
 
     private void btnNewMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNewMouseClicked
-        NewEmployeeView form = new NewEmployeeView();
+        NewEquipmentView form = new NewEquipmentView();
         form.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnNewMouseClicked
@@ -241,9 +253,9 @@ public class EquipmentView extends javax.swing.JFrame {
         if(FILA != -1){
             EquipoAgricola equipo = equipos.get(FILA);
             if(EquipmentController.eliminarEquipo(equipo.getId_equipo())){
-                EquipmentView form = new EquipmentView();
-                form.setVisible(true);
                 this.dispose();
+                EquipmentView form = new EquipmentView();
+                form.setVisible(true);              
             }
         } else{
             JOptionPane.showMessageDialog(null, "Seleccione el equipo a eliminar");
@@ -254,8 +266,7 @@ public class EquipmentView extends javax.swing.JFrame {
         int FILA = tblEquipos.getSelectedRow();
         if(FILA != -1){
             UpdateEquipmentView form = new UpdateEquipmentView(equipos.get(FILA));
-            form.setVisible(true);
-            this.dispose();
+            cargarEquipoTabla();
         }else JOptionPane.showMessageDialog(null, "Seleccione el equipo!");
     }//GEN-LAST:event_jLabel3MouseClicked
 

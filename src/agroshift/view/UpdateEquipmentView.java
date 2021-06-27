@@ -26,18 +26,18 @@ public class UpdateEquipmentView extends javax.swing.JFrame {
         setTitle("Ver detalles del equipo");
         setLocationRelativeTo(null);    
     }
+    EquipoAgricola equipoSeleccionado;
     
     public UpdateEquipmentView(EquipoAgricola equipoAgricola) {
         initComponents();
         setTitle("Ver detalles del equipo");
+        equipoSeleccionado = equipoAgricola;
         setLocationRelativeTo(null);
         cargarEstados();
         cargarTipos();
         cargarDatos(equipoAgricola);      
-        equipoSeleccionado = equipoAgricola;
+        
     }
-    
-    EquipoAgricola equipoSeleccionado = new EquipoAgricola();
     
     private void cargarTipos(){
         ArrayList<String> tipos = EquipmentController.obtenerTodosTipos();
@@ -51,6 +51,7 @@ public class UpdateEquipmentView extends javax.swing.JFrame {
         for(String est:estados){
             cbxStates.addItem(est);
         }
+        cbxStates.setSelectedItem(EquipmentController.obtenerEstadoPorId(equipoSeleccionado.getId_estado()));
     }
     
     private void cargarDatos(EquipoAgricola equipo){
@@ -274,7 +275,16 @@ public class UpdateEquipmentView extends javax.swing.JFrame {
     private void btnNewMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNewMouseClicked
         if(validarCampos()){
             try{
-                if(EquipmentController.actualizarEquipo(equipoSeleccionado)){
+                EquipoAgricola nuevo_equipo = new EquipoAgricola();
+                nuevo_equipo.setId_equipo(equipoSeleccionado.getId_equipo());
+                nuevo_equipo.setId_estado(EquipmentController.obtenerIdEstadoPorNombre(cbxStates.getSelectedItem().toString()));
+                nuevo_equipo.setId_tipo(EquipmentController.obtenerIdTipoPorNombre(cbxTypes.getSelectedItem().toString()));
+                nuevo_equipo.setAdquisicion(txtAnioAdq.getText()+"-"+txtMesAdq.getText()+"-"+txtDiaAdq.getText());
+                nuevo_equipo.setCodigo(txtCodigo.getText());
+                nuevo_equipo.setMarca(txtMarca.getText());
+                nuevo_equipo.setModelo(txtModelo.getText());
+                nuevo_equipo.setDescripcion(txtDescripcion.getText());
+                if(EquipmentController.actualizarEquipo(nuevo_equipo)){
                     EquipmentView form = new EquipmentView();
                     form.setVisible(true);
                     this.dispose();
