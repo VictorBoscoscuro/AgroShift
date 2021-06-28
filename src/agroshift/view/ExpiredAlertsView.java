@@ -28,21 +28,101 @@ public class ExpiredAlertsView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        btnBack = new javax.swing.JLabel();
+        btnDescartarTodas = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblAlertasEnCurso = new javax.swing.JTable();
+        btnRevisarAlerta = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 585, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 362, Short.MAX_VALUE)
-        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/agroshift/img/back-arrow-75.png"))); // NOI18N
+        btnBack.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnBackMouseClicked(evt);
+            }
+        });
+        getContentPane().add(btnBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 410, -1, -1));
+
+        btnDescartarTodas.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
+        btnDescartarTodas.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnDescartarTodas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/agroshift/img/delete_50.png"))); // NOI18N
+        btnDescartarTodas.setText("DESCARTAR TODAS LAS ALERTAS VENCIDAS");
+        btnDescartarTodas.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        getContentPane().add(btnDescartarTodas, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 420, -1, -1));
+
+        tblAlertasEnCurso.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Alerta", "Vencimiento"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblAlertasEnCurso.setRowHeight(22);
+        tblAlertasEnCurso.setSelectionBackground(new java.awt.Color(232, 213, 84));
+        tblAlertasEnCurso.setSelectionForeground(new java.awt.Color(0, 0, 0));
+        jScrollPane1.setViewportView(tblAlertasEnCurso);
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 30, -1, 200));
+
+        btnRevisarAlerta.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnRevisarAlerta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/agroshift/img/eye_60.png"))); // NOI18N
+        btnRevisarAlerta.setText("REVISAR ALERTA");
+        btnRevisarAlerta.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnRevisarAlertaMouseClicked(evt);
+            }
+        });
+        getContentPane().add(btnRevisarAlerta, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 240, -1, -1));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/agroshift/img/fondo_alerta1.jpg"))); // NOI18N
+        jLabel1.setText("jLabel1");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 724, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnRevisarAlertaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRevisarAlertaMouseClicked
+//        int FILA = tblAlertasEnCurso.getSelectedRow();
+//        if(FILA != -1){
+//            CheckAlert form = new CheckAlert(alertasEnCurso.get(FILA));
+//            form.setVisible(true);
+//            this.dispose();
+//        } else{
+//            JOptionPane.showMessageDialog(null, "Seleccione la alerta");
+//        }
+    }//GEN-LAST:event_btnRevisarAlertaMouseClicked
+
+    private void btnBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBackMouseClicked
+        MainView form = new MainView();
+        form.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnBackMouseClicked
 
     /**
      * @param args the command line arguments
@@ -80,5 +160,11 @@ public class ExpiredAlertsView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel btnBack;
+    private javax.swing.JLabel btnDescartarTodas;
+    private javax.swing.JLabel btnRevisarAlerta;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tblAlertasEnCurso;
     // End of variables declaration//GEN-END:variables
 }

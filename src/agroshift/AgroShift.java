@@ -5,6 +5,8 @@
  */
 package agroshift;
 
+import agroshift.view.LoginView;
+
 /**
  *
  * @author victo
@@ -15,7 +17,10 @@ public class AgroShift {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+
+        LoginView login = new LoginView();
+        login.setVisible(true);
     }
+    
     
 }

@@ -439,6 +439,7 @@ public class NewEmployeeView extends javax.swing.JFrame {
                 
                 EmployeeController.nuevoEmpleado(documento,nombre,nacimiento,alta, numero, rol);
                 EmployeesView form = new EmployeesView();
+                form.setVisible(true);
                 this.dispose();
             } else{
                 JOptionPane.showMessageDialog(null, "Error en las fechas");

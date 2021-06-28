@@ -5,6 +5,15 @@
  */
 package agroshift.view;
 
+import agroshift.controller.AlertController;
+import agroshift.model.Alerta;
+import java.awt.Color;
+import java.awt.Font;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author victo
@@ -16,8 +25,76 @@ public class AlertView extends javax.swing.JFrame {
      */
     public AlertView() {
         initComponents();
+        cargarAlertasEnCurso();
+        setTitle("Alertas en curso");
+        setLocationRelativeTo(null);
+        if(AlertController.hayAlertasVencidas()){
+            btnExpiredAlerts.setVisible(true);
+        } else btnExpiredAlerts.setVisible(false);
+        
     }
-
+    private ArrayList<Alerta> alertasEnCurso = new ArrayList<>();
+    
+     private void formatoTabla(){
+                
+        int[] weights = {75,25};
+            
+        for(int i = 0; i < tblAlertasEnCurso.getColumnCount(); i++){
+            tblAlertasEnCurso.getColumnModel().getColumn(i).setPreferredWidth(weights[i]);
+        }
+        
+        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();
+        headerRenderer.setBackground(new Color(30, 30, 30));
+        headerRenderer.setForeground(Color.WHITE);
+        headerRenderer.setFont(new Font("Segoe UI",Font.BOLD,14));
+        headerRenderer.setOpaque(true);
+        headerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+  
+        for (int i = 0; i < tblAlertasEnCurso.getModel().getColumnCount(); i++) {          //Recorro y se lo aplico a cada header
+            tblAlertasEnCurso.getColumnModel().getColumn(i).setHeaderRenderer(headerRenderer);    
+        }
+        
+        DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
+        cellRenderer.setBackground(new Color(240, 240, 240));
+        cellRenderer.setForeground(Color.BLACK);
+        cellRenderer.setFont(new Font("Segoe UI",Font.PLAIN,13));
+        cellRenderer.setOpaque(true);
+        cellRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+        
+        for (int i = 0; i < tblAlertasEnCurso.getColumnCount(); i++) {          //Recorro y se lo aplico a cada header
+            tblAlertasEnCurso.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);    
+        }
+    }
+    
+    private void cargarAlertasEnCurso(){
+        alertasEnCurso = AlertController.obtenerAlertasEnCurso();
+        int numberColumns = 2;
+        try{
+            DefaultTableModel model = new DefaultTableModel(){
+                @Override
+                public boolean isCellEditable(int i, int i1){
+                    return false;
+                }
+            };
+            tblAlertasEnCurso.setModel(model);
+            model.addColumn("Alerta");
+            model.addColumn("Vencimiento");
+            
+            formatoTabla();
+            
+            for(Alerta alerta: alertasEnCurso){
+                Object[] rows = new Object[numberColumns];
+                rows[0] = alerta.getNombre();
+                rows[1] = alerta.getFecha_fin();
+                model.addRow(rows);
+            }
+                
+        } catch(Exception e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null,"Error al cargar las alertas");
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -27,13 +104,19 @@ public class AlertView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnBack = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        btnBack1 = new javax.swing.JLabel();
+        btnBack = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblAlertasEnCurso = new javax.swing.JTable();
+        btnRevisarAlerta = new javax.swing.JLabel();
         btnNewAlert = new javax.swing.JButton();
+        btnEditNoEnCursoAlert = new javax.swing.JButton();
+        btnExpiredAlerts = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/agroshift/img/back-arrow-75.png"))); // NOI18N
         btnBack.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -41,36 +124,71 @@ public class AlertView extends javax.swing.JFrame {
                 btnBackMouseClicked(evt);
             }
         });
+        jPanel1.add(btnBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 410, -1, -1));
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        btnBack1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/agroshift/img/back-arrow-75.png"))); // NOI18N
-        btnBack1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnBack1MouseClicked(evt);
-            }
-        });
-        jPanel1.add(btnBack1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 410, -1, -1));
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblAlertasEnCurso.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Alerta", "Vencimiento"
             }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 30, -1, 320));
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblAlertasEnCurso.setRowHeight(22);
+        tblAlertasEnCurso.setSelectionBackground(new java.awt.Color(232, 213, 84));
+        tblAlertasEnCurso.setSelectionForeground(new java.awt.Color(0, 0, 0));
+        jScrollPane1.setViewportView(tblAlertasEnCurso);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 30, -1, 200));
+
+        btnRevisarAlerta.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnRevisarAlerta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/agroshift/img/eye_60.png"))); // NOI18N
+        btnRevisarAlerta.setText("REVISAR ALERTA");
+        btnRevisarAlerta.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnRevisarAlertaMouseClicked(evt);
+            }
+        });
+        jPanel1.add(btnRevisarAlerta, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 240, -1, -1));
 
         btnNewAlert.setText("CREAR ALERTA");
+        btnNewAlert.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNewAlertActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnNewAlert, new org.netbeans.lib.awtextra.AbsoluteConstraints(583, 435, 120, 30));
+
+        btnEditNoEnCursoAlert.setText("<html><center>EDITAR ALERTAS AUN NO EN CURSO<html>");
+        btnEditNoEnCursoAlert.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel1.add(btnEditNoEnCursoAlert, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 130, 50));
+
+        btnExpiredAlerts.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnExpiredAlerts.setIcon(new javax.swing.ImageIcon(getClass().getResource("/agroshift/img/expired_50.png"))); // NOI18N
+        btnExpiredAlerts.setText("ALERTAS VENCIDAS");
+        jPanel1.add(btnExpiredAlerts, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 420, -1, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/agroshift/img/fondo_alerta1.jpg"))); // NOI18N
         jLabel1.setText("jLabel1");
@@ -96,11 +214,22 @@ public class AlertView extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnBackMouseClicked
 
-    private void btnBack1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBack1MouseClicked
-        MainView form = new MainView();
+    private void btnRevisarAlertaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRevisarAlertaMouseClicked
+        int FILA = tblAlertasEnCurso.getSelectedRow();
+        if(FILA != -1){
+            CheckAlert form = new CheckAlert(alertasEnCurso.get(FILA));
+            form.setVisible(true);
+            this.dispose();
+        } else{
+            JOptionPane.showMessageDialog(null, "Seleccione la alerta");
+        }
+    }//GEN-LAST:event_btnRevisarAlertaMouseClicked
+
+    private void btnNewAlertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewAlertActionPerformed
+        SelectModelAlertView form = new SelectModelAlertView();
         form.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_btnBack1MouseClicked
+    }//GEN-LAST:event_btnNewAlertActionPerformed
 
     /**
      * @param args the command line arguments
@@ -139,11 +268,13 @@ public class AlertView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnBack;
-    private javax.swing.JLabel btnBack1;
+    private javax.swing.JButton btnEditNoEnCursoAlert;
+    private javax.swing.JLabel btnExpiredAlerts;
     private javax.swing.JButton btnNewAlert;
+    private javax.swing.JLabel btnRevisarAlerta;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tblAlertasEnCurso;
     // End of variables declaration//GEN-END:variables
 }

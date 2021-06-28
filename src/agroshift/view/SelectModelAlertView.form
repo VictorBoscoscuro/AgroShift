@@ -45,27 +45,30 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="1" attributes="0">
-                          <Component id="btnBack1" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Component id="btnBack" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="btnPersonalizada" min="-2" pref="105" max="-2" attributes="0"/>
+                          <Component id="btnPersonalizada" min="-2" pref="124" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel1" max="32767" attributes="0"/>
+                              <Component id="jLabel1" pref="399" max="32767" attributes="0"/>
                               <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="btnInicioRenta" alignment="0" min="-2" pref="115" max="-2" attributes="0"/>
-                                      <Component id="btnFinRenta" alignment="0" min="-2" pref="115" max="-2" attributes="0"/>
-                                      <Component id="btnLlevarEquipoRenta" alignment="0" min="-2" pref="115" max="-2" attributes="0"/>
-                                      <Component id="btnBuscarEquipoRenta" alignment="0" min="-2" pref="115" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                      <Component id="btnLlevarEquipoRenta" pref="124" max="32767" attributes="0"/>
+                                      <Component id="btnFinRenta" max="32767" attributes="0"/>
+                                      <Component id="btnBuscarEquipoRenta" max="32767" attributes="0"/>
                                   </Group>
-                                  <EmptySpace max="32767" attributes="0"/>
+                                  <EmptySpace min="-2" pref="151" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="btnLlevarEquipoTaller" alignment="0" min="-2" pref="115" max="-2" attributes="0"/>
-                                      <Component id="btnRetirarEquipoTaller" alignment="0" min="-2" pref="115" max="-2" attributes="0"/>
+                                      <Component id="btnRetirarEquipoTaller" max="32767" attributes="0"/>
+                                      <Component id="btnLlevarEquipoTaller" max="32767" attributes="0"/>
                                   </Group>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="btnInicioRenta" min="-2" pref="124" max="-2" attributes="0"/>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -87,8 +90,6 @@
                           <Component id="btnFinRenta" min="-2" pref="43" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="btnLlevarEquipoRenta" min="-2" pref="43" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="btnBuscarEquipoRenta" min="-2" pref="43" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
                           <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
@@ -97,9 +98,11 @@
                           <Component id="btnRetirarEquipoTaller" min="-2" pref="43" max="-2" attributes="0"/>
                       </Group>
                   </Group>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="btnBuscarEquipoRenta" min="-2" pref="43" max="-2" attributes="0"/>
                   <EmptySpace pref="45" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="btnBack1" min="-2" pref="54" max="-2" attributes="0"/>
+                      <Component id="btnBack" min="-2" pref="54" max="-2" attributes="0"/>
                       <Component id="btnPersonalizada" min="-2" pref="40" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -111,6 +114,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Personalizada"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPersonalizadaActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
@@ -121,14 +127,14 @@
             <Property name="text" type="java.lang.String" value="SELECCIONE MODELO BASE DE LA ALERTA"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="btnBack1">
+        <Component class="javax.swing.JLabel" name="btnBack">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/agroshift/img/back-arrow-75.png"/>
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnBack1MouseClicked"/>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnBackMouseClicked"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnInicioRenta">

@@ -151,6 +151,11 @@ public class EmployeesView extends javax.swing.JFrame {
         });
 
         btnDelete.setText("ELIMINAR");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
         btnUpdate.setText("ACTUALIZAR");
         btnUpdate.addActionListener(new java.awt.event.ActionListener() {
@@ -228,6 +233,10 @@ public class EmployeesView extends javax.swing.JFrame {
         form.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnUpdateActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnDeleteActionPerformed
 
 
     

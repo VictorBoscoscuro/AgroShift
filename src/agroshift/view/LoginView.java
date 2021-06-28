@@ -23,17 +23,17 @@ public class LoginView extends javax.swing.JFrame {
     /**
      * Creates new form LoginView
      */
-    private int cantidadAlertasRevision(){
+    
+    private static int cantidadAlertasRevision(){
         PreparedStatement ps = null;
         MyConnectionDB mycon = new MyConnectionDB();
         Connection con = mycon.getMyConnection();
         String hoy = LocalDate.now().toString();
         ResultSet rs = null;
         try{
-            String sql = "SELECT COUNT(*) AS cantidad FROM alerta WHERE inicio_vigencia < ? AND fin_vigencia > ?";
+            String sql = "SELECT COUNT(*) AS cantidad FROM alerta WHERE fecha_fin < ? AND visualizada = false";
             ps = con.prepareCall(sql);
             ps.setString(1, hoy);
-            ps.setString(2, hoy);
             rs = ps.executeQuery();
             if(rs.next()){
                 return rs.getInt("cantidad");
@@ -45,15 +45,18 @@ public class LoginView extends javax.swing.JFrame {
         
     }
     
+    
     public LoginView() {
         initComponents();
-        int alerts = cantidadAlertasRevision();
-        if(alerts > 0){
-            InitCountAlertsView form = new InitCountAlertsView(alerts);
-            form.setVisible(true);
-        }
         setTitle("Por favor ingrese sus credenciales");
         setLocationRelativeTo(null);
+        if(cantidadAlertasRevision() > 0){
+            InitCountAlertsView form = new InitCountAlertsView();
+            form.setVisible(true);
+            form.setLocationRelativeTo(null);
+            form.requestFocus();
+        }
+        
     }
 
     /**
@@ -76,6 +79,13 @@ public class LoginView extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+                formWindowGainedFocus(evt);
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(67, 217, 130));
 
@@ -206,6 +216,10 @@ public class LoginView extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         System.exit(0);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+
+    }//GEN-LAST:event_formWindowGainedFocus
 
     /**
      * @param args the command line arguments
