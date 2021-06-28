@@ -48,6 +48,11 @@ public class AdminMainView extends javax.swing.JFrame {
         btnMenuPrincipal.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
         btnMenuPrincipal.setText("IR AL MENU PRINCIPAL");
         btnMenuPrincipal.setBorderPainted(false);
+        btnMenuPrincipal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMenuPrincipalActionPerformed(evt);
+            }
+        });
 
         jButton2.setBackground(new java.awt.Color(153, 153, 255));
         jButton2.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
@@ -146,6 +151,12 @@ public class AdminMainView extends javax.swing.JFrame {
         form.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void btnMenuPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuPrincipalActionPerformed
+        MainView form = new MainView();
+        form.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnMenuPrincipalActionPerformed
 
     /**
      * @param args the command line arguments

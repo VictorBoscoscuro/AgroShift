@@ -347,4 +347,46 @@ public class EquipmentController {
         }
     }
     
+    public static ArrayList<EquipoAgricola> obtenerEquipos(String tipo, String estado){
+        PreparedStatement ps = null;
+        MyConnectionDB mycon = new MyConnectionDB();
+        Connection con = mycon.getMyConnection();
+        ResultSet rs = null;
+        ArrayList<EquipoAgricola> equipos = new ArrayList<>();
+        try{
+            String sql = "SELECT * FROM equipo_agricola WHERE id_estado = ? AND id_tipo = ?";
+            ps = con.prepareStatement(sql);
+            ps.setLong(1, obtenerIdEstadoPorNombre(estado));
+            ps.setLong(2, obtenerIdTipoPorNombre(tipo));
+            rs = ps.executeQuery();
+           
+            while(rs.next()){
+                EquipoAgricola equipo = new EquipoAgricola();
+                equipo.setCodigo(rs.getString("codigo_equipo"));
+                equipo.setDescripcion(rs.getString("descripcion"));
+                equipo.setId_equipo(rs.getLong("id_equipo"));
+                equipo.setId_estado(rs.getLong("id_estado"));
+                equipo.setId_tipo(rs.getLong("id_tipo"));
+                equipo.setMarca(rs.getString("marca"));
+                equipo.setModelo(rs.getString("modelo"));
+                equipo.setAdquisicion(rs.getDate("fecha_adquisicion").toString());
+                equipos.add(equipo);
+            }
+            return equipos;
+        } catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Error al obtener los equipos");
+            return equipos;
+        } finally{
+            try{
+                rs.close();
+            } catch(Exception e){}
+            try{
+                ps.close();
+            } catch(Exception e){}
+            try{
+                con.close();
+            } catch(Exception e){}
+        }
+    }
+    
 }

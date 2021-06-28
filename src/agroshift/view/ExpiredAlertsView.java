@@ -5,6 +5,16 @@
  */
 package agroshift.view;
 
+import agroshift.controller.AlertController;
+import agroshift.model.Alerta;
+import java.awt.Color;
+import java.awt.Font;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author victo
@@ -16,8 +26,72 @@ public class ExpiredAlertsView extends javax.swing.JFrame {
      */
     public ExpiredAlertsView() {
         initComponents();
+        cargarAlertasVencidas();
+        setTitle("Actualizar alertas");
+        setLocationRelativeTo(null);
     }
-    //public ExpiredAlertsView(ArrayList)
+
+    private ArrayList<Alerta> alertasVencidas = new ArrayList<>();
+    
+     private void formatoTabla(){
+                
+        int[] weights = {75,25};
+            
+        for(int i = 0; i < tblAlertasVencidas.getColumnCount(); i++){
+            tblAlertasVencidas.getColumnModel().getColumn(i).setPreferredWidth(weights[i]);
+        }
+        
+        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();
+        headerRenderer.setBackground(new Color(30, 30, 30));
+        headerRenderer.setForeground(Color.WHITE);
+        headerRenderer.setFont(new Font("Segoe UI",Font.BOLD,14));
+        headerRenderer.setOpaque(true);
+        headerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+  
+        for (int i = 0; i < tblAlertasVencidas.getModel().getColumnCount(); i++) {          //Recorro y se lo aplico a cada header
+            tblAlertasVencidas.getColumnModel().getColumn(i).setHeaderRenderer(headerRenderer);    
+        }
+        
+        DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
+        cellRenderer.setBackground(new Color(240, 240, 240));
+        cellRenderer.setForeground(Color.BLACK);
+        cellRenderer.setFont(new Font("Segoe UI",Font.PLAIN,13));
+        cellRenderer.setOpaque(true);
+        cellRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+        
+        for (int i = 0; i < tblAlertasVencidas.getColumnCount(); i++) {          //Recorro y se lo aplico a cada header
+            tblAlertasVencidas.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);    
+        }
+    }
+    
+    private void cargarAlertasVencidas(){
+        alertasVencidas = AlertController.obtenerAlertasVencidas();
+        int numberColumns = 2;
+        try{
+            DefaultTableModel model = new DefaultTableModel(){
+                @Override
+                public boolean isCellEditable(int i, int i1){
+                    return false;
+                }
+            };
+            tblAlertasVencidas.setModel(model);
+            model.addColumn("Alerta");
+            model.addColumn("Finalizó");
+            
+            formatoTabla();
+            
+            for(Alerta alerta: alertasVencidas){
+                Object[] rows = new Object[numberColumns];
+                rows[0] = alerta.getNombre();
+                rows[1] = alerta.getFecha_fin();
+                model.addRow(rows);
+            }
+                
+        } catch(Exception e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null,"Error al cargar las alertas vencidas");
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -31,7 +105,7 @@ public class ExpiredAlertsView extends javax.swing.JFrame {
         btnBack = new javax.swing.JLabel();
         btnDescartarTodas = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblAlertasEnCurso = new javax.swing.JTable();
+        tblAlertasVencidas = new javax.swing.JTable();
         btnRevisarAlerta = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -51,9 +125,19 @@ public class ExpiredAlertsView extends javax.swing.JFrame {
         btnDescartarTodas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/agroshift/img/delete_50.png"))); // NOI18N
         btnDescartarTodas.setText("DESCARTAR TODAS LAS ALERTAS VENCIDAS");
         btnDescartarTodas.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        btnDescartarTodas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnDescartarTodasMouseClicked(evt);
+            }
+        });
+        btnDescartarTodas.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnDescartarTodasKeyPressed(evt);
+            }
+        });
         getContentPane().add(btnDescartarTodas, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 420, -1, -1));
 
-        tblAlertasEnCurso.setModel(new javax.swing.table.DefaultTableModel(
+        tblAlertasVencidas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -83,10 +167,10 @@ public class ExpiredAlertsView extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tblAlertasEnCurso.setRowHeight(22);
-        tblAlertasEnCurso.setSelectionBackground(new java.awt.Color(232, 213, 84));
-        tblAlertasEnCurso.setSelectionForeground(new java.awt.Color(0, 0, 0));
-        jScrollPane1.setViewportView(tblAlertasEnCurso);
+        tblAlertasVencidas.setRowHeight(22);
+        tblAlertasVencidas.setSelectionBackground(new java.awt.Color(232, 213, 84));
+        tblAlertasVencidas.setSelectionForeground(new java.awt.Color(0, 0, 0));
+        jScrollPane1.setViewportView(tblAlertasVencidas);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 30, -1, 200));
 
@@ -108,21 +192,31 @@ public class ExpiredAlertsView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRevisarAlertaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRevisarAlertaMouseClicked
-//        int FILA = tblAlertasEnCurso.getSelectedRow();
-//        if(FILA != -1){
-//            CheckAlert form = new CheckAlert(alertasEnCurso.get(FILA));
-//            form.setVisible(true);
-//            this.dispose();
-//        } else{
-//            JOptionPane.showMessageDialog(null, "Seleccione la alerta");
-//        }
+        int FILA = tblAlertasVencidas.getSelectedRow();
+        if(FILA != -1){
+            CheckAlert form = new CheckAlert(alertasVencidas.get(FILA),true);
+            form.setVisible(true);
+            this.dispose();
+        } else{
+            JOptionPane.showMessageDialog(null, "Seleccione la alerta");
+        }
     }//GEN-LAST:event_btnRevisarAlertaMouseClicked
 
     private void btnBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBackMouseClicked
-        MainView form = new MainView();
+        AlertView form = new AlertView();
         form.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnBackMouseClicked
+
+    private void btnDescartarTodasKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnDescartarTodasKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnDescartarTodasKeyPressed
+
+    private void btnDescartarTodasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDescartarTodasMouseClicked
+        if(AlertController.eliminarAlertasVencidas()){
+            cargarAlertasVencidas();
+        }
+    }//GEN-LAST:event_btnDescartarTodasMouseClicked
 
     /**
      * @param args the command line arguments
@@ -165,6 +259,6 @@ public class ExpiredAlertsView extends javax.swing.JFrame {
     private javax.swing.JLabel btnRevisarAlerta;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblAlertasEnCurso;
+    private javax.swing.JTable tblAlertasVencidas;
     // End of variables declaration//GEN-END:variables
 }

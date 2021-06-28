@@ -3,16 +3,21 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/view/NotInProgressAlertsView.java</file>
+            <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/view/SelectModelAlertView.java</file>
             <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/view/AlertView.java</file>
+            <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/view/AdminMainView.java</file>
             <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/view/ExpiredAlertsView.java</file>
+            <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/controller/EmployeeController.java</file>
+            <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/view/ClientsView.java</file>
+            <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/view/NewEmployeeView.java</file>
+            <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/view/NotInProgressAlertsView.java</file>
             <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/view/EmployeesView.java</file>
             <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/view/NewCustomAlertView.java</file>
             <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/util/MyConnectionDB.java</file>
             <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/controller/AlertController.java</file>
-            <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/controller/EmployeeController.java</file>
-            <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/view/InitCountAlertsView.java</file>
-            <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/view/NewEmployeeView.java</file>
+            <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/view/EquipmentView.java</file>
+            <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/view/CheckAlert.java</file>
+            <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/controller/EquipmentController.java</file>
         </group>
     </open-files>
 </project-private>

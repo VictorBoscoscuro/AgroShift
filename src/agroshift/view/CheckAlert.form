@@ -50,12 +50,12 @@
                       <Component id="lblName" alignment="1" max="32767" attributes="0"/>
                       <Group type="102" alignment="1" attributes="0">
                           <Component id="btnDeleteAlert" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="210" max="32767" attributes="0"/>
-                          <Component id="btnBack" min="-2" pref="171" max="-2" attributes="0"/>
+                          <EmptySpace pref="172" max="32767" attributes="0"/>
+                          <Component id="btnSeguirMostrando" min="-2" pref="171" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Group type="102" attributes="0">
-                                  <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblVencimientoText" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="lblVencimiento" max="32767" attributes="0"/>
                               </Group>
@@ -76,14 +76,14 @@
                   <Component id="lblDescription" min="-2" pref="83" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblVencimientoText" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lblVencimiento" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="21" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btnExtendExpire" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
                       <Component id="btnDeleteAlert" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
-                      <Component id="btnBack" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
+                      <Component id="btnSeguirMostrando" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -123,15 +123,15 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDeleteAlertActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btnBack">
+        <Component class="javax.swing.JButton" name="btnSeguirMostrando">
           <Properties>
             <Property name="text" type="java.lang.String" value="SEGUIR MOSTRANDO"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBackActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSeguirMostrandoActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel3">
+        <Component class="javax.swing.JLabel" name="lblVencimientoText">
           <Properties>
             <Property name="text" type="java.lang.String" value="Vencimiento:"/>
           </Properties>

@@ -245,7 +245,7 @@ public class NotInProgressAlertsView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBackMouseClicked
 
     private void btnBack1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBack1MouseClicked
-        MainView form = new MainView();
+        AlertView form = new AlertView();
         form.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnBack1MouseClicked
@@ -289,7 +289,6 @@ public class NotInProgressAlertsView extends javax.swing.JFrame {
         int FILA = tblAlertasNoEnCurso.getSelectedRow();
         if(FILA != -1){
             if(AlertController.eliminarAlerta(alertasNoEnCurso.get(FILA).getId_alerta())){
-                JOptionPane.showMessageDialog(null, "Alerta descartada");
                 cargarAlertasNoEnCurso();
             }
         }

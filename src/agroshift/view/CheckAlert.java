@@ -36,6 +36,27 @@ public class CheckAlert extends javax.swing.JFrame {
             this.dispose();
         }
     }
+    public CheckAlert(Alerta alerta,boolean vencida) {      //Llega una vencida
+        initComponents();
+        llegaUnaVencida = true;
+        btnSeguirMostrando.setVisible(false);
+        lblVencimientoText.setVisible(false);
+        lblVencimiento.setVisible(false);
+        btnExtendExpire.setVisible(false);
+        this.alerta = alerta;
+        if(AlertController.setearAlertaVisualizada(alerta.getId_alerta())){
+            lblName.setText("<html><center>"+alerta.getNombre()+"<html>");
+            lblDescription.setText("<html><center>"+alerta.getDescripcion()+"<html>");
+            lblVencimiento.setText(alerta.getFecha_fin());
+
+        } else{
+            JOptionPane.showMessageDialog(null, "Error al visualizar alerta");
+            ExpiredAlertsView form = new ExpiredAlertsView();
+            form.setVisible(true);
+            this.dispose();
+        }
+    }
+    boolean llegaUnaVencida = false;
 
     Alerta alerta;
     
@@ -53,8 +74,8 @@ public class CheckAlert extends javax.swing.JFrame {
         lblDescription = new javax.swing.JLabel();
         btnExtendExpire = new javax.swing.JButton();
         btnDeleteAlert = new javax.swing.JButton();
-        btnBack = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
+        btnSeguirMostrando = new javax.swing.JButton();
+        lblVencimientoText = new javax.swing.JLabel();
         lblVencimiento = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -79,14 +100,14 @@ public class CheckAlert extends javax.swing.JFrame {
             }
         });
 
-        btnBack.setText("SEGUIR MOSTRANDO");
-        btnBack.addActionListener(new java.awt.event.ActionListener() {
+        btnSeguirMostrando.setText("SEGUIR MOSTRANDO");
+        btnSeguirMostrando.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBackActionPerformed(evt);
+                btnSeguirMostrandoActionPerformed(evt);
             }
         });
 
-        jLabel3.setText("Vencimiento:");
+        lblVencimientoText.setText("Vencimiento:");
 
         lblVencimiento.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
         lblVencimiento.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -103,12 +124,12 @@ public class CheckAlert extends javax.swing.JFrame {
                     .addComponent(lblName)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnDeleteAlert)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 210, Short.MAX_VALUE)
-                        .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 172, Short.MAX_VALUE)
+                        .addComponent(btnSeguirMostrando, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(43, 43, 43)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel3)
+                                .addComponent(lblVencimientoText)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lblVencimiento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addComponent(btnExtendExpire, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -123,13 +144,13 @@ public class CheckAlert extends javax.swing.JFrame {
                 .addComponent(lblDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(63, 63, 63)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
+                    .addComponent(lblVencimientoText)
                     .addComponent(lblVencimiento))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnExtendExpire, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnDeleteAlert, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnSeguirMostrando, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -148,19 +169,29 @@ public class CheckAlert extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDeleteAlertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteAlertActionPerformed
-        if(AlertController.eliminarAlerta(alerta.getId_alerta())){
-            JOptionPane.showMessageDialog(null,"Alerta descartada");
-            AlertView form = new AlertView();
-            form.setVisible(true);
-            this.dispose();
-        } 
+        if(llegaUnaVencida){
+          if(AlertController.eliminarAlerta(alerta.getId_alerta())){
+                JOptionPane.showMessageDialog(null,"Alerta descartada");
+                ExpiredAlertsView form = new ExpiredAlertsView();
+                form.setVisible(true);
+                this.dispose();
+            }   
+        }else{
+           if(AlertController.eliminarAlerta(alerta.getId_alerta())){
+                JOptionPane.showMessageDialog(null,"Alerta descartada");
+                AlertView form = new AlertView();
+                form.setVisible(true);
+                this.dispose();
+            }  
+        }
+        
     }//GEN-LAST:event_btnDeleteAlertActionPerformed
 
-    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+    private void btnSeguirMostrandoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeguirMostrandoActionPerformed
         AlertView form = new AlertView();
         form.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_btnBackActionPerformed
+    }//GEN-LAST:event_btnSeguirMostrandoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -198,13 +229,13 @@ public class CheckAlert extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBack;
     private javax.swing.JButton btnDeleteAlert;
     private javax.swing.JButton btnExtendExpire;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JButton btnSeguirMostrando;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblDescription;
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblVencimiento;
+    private javax.swing.JLabel lblVencimientoText;
     // End of variables declaration//GEN-END:variables
 }

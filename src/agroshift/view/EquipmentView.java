@@ -111,6 +111,40 @@ public class EquipmentView extends javax.swing.JFrame {
             cbxEstado.addItem(est);
         }
     }
+    
+    private void cargarEquiposFiltradosTabla(String estado, String tipo){
+        equipos = EquipmentController.obtenerEquipos(tipo, estado);
+        int numberColumns = 4;
+        try{
+            DefaultTableModel model = new DefaultTableModel(){
+                @Override
+                public boolean isCellEditable(int i, int i1){
+                    return false;
+                }
+            };
+            tblEquipos.setModel(model);
+            model.addColumn("Tipo");
+            model.addColumn("Marca");
+            model.addColumn("Codigo");
+            model.addColumn("Estado");
+            
+            formatoTabla();
+            
+            for(EquipoAgricola equipo: equipos){
+                Object[] rows = new Object[numberColumns];
+                rows[0] = EquipmentController.obtenerTipoPorId(equipo.getId_tipo());
+                rows[1] = equipo.getMarca();
+                rows[2] = equipo.getCodigo();
+                rows[3] = EquipmentController.obtenerEstadoPorId(equipo.getId_estado());
+                model.addRow(rows);
+            }
+                
+        } catch(Exception e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null,"Error al cargar los clientes");
+        }
+    
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -137,6 +171,11 @@ public class EquipmentView extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnFilter.setText("FILTRAR");
+        btnFilter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFilterActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnFilter, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 240, 130, 40));
 
         jPanel1.add(cbxEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 230, -1));
@@ -269,6 +308,10 @@ public class EquipmentView extends javax.swing.JFrame {
             cargarEquipoTabla();
         }else JOptionPane.showMessageDialog(null, "Seleccione el equipo!");
     }//GEN-LAST:event_jLabel3MouseClicked
+
+    private void btnFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilterActionPerformed
+        cargarEquiposFiltradosTabla(String.valueOf(cbxEstado.getSelectedItem()), String.valueOf(cbxTipo.getSelectedItem()));
+    }//GEN-LAST:event_btnFilterActionPerformed
 
     /**
      * @param args the command line arguments

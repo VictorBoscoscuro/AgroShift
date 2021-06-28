@@ -6,6 +6,7 @@
 package agroshift.view;
 
 import agroshift.controller.AlertController;
+import agroshift.util.UserLogin;
 
 /**
  *
@@ -18,6 +19,7 @@ public class MainView extends javax.swing.JFrame {
      */
     public MainView() {
         initComponents();
+        lblCantidadAlertas.setText(String.valueOf(AlertController.obtenerCantidadAlertasEnCurso()));
     }
 
     /**
@@ -30,12 +32,13 @@ public class MainView extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        btnModificarClave = new javax.swing.JButton();
+        btnRentas = new javax.swing.JButton();
+        btnAlertas = new javax.swing.JButton();
+        btnEquipo = new javax.swing.JButton();
+        btnEmpleados = new javax.swing.JButton();
+        btnClientes = new javax.swing.JButton();
+        btnSalir = new javax.swing.JButton();
+        btnModificarClave1 = new javax.swing.JButton();
         lblCantidadAlertas = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -43,83 +46,121 @@ public class MainView extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(153, 255, 153));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton1.setText("EQUIPO AGRÍCOLA");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnRentas.setText("RENTAS");
+        btnRentas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnRentasActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(92, 44, 235, 152));
+        jPanel1.add(btnRentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 40, 140, 70));
 
-        jButton2.setText("RENTAS");
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 44, 235, 152));
-
-        jButton3.setText("CLIENTES");
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(92, 236, 235, 152));
-
-        jButton4.setText("EMPLEADOS");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btnAlertas.setText("ALERTAS");
+        btnAlertas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btnAlertasActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 236, 235, 152));
+        jPanel1.add(btnAlertas, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 120, 96, 40));
 
-        jButton5.setText("ALERTAS");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        btnEquipo.setText("EQUIPO AGRÍCOLA");
+        btnEquipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                btnEquipoActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 460, 96, 54));
+        jPanel1.add(btnEquipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, 140, 70));
 
-        btnModificarClave.setText("Modificar clave");
-        btnModificarClave.addActionListener(new java.awt.event.ActionListener() {
+        btnEmpleados.setText("EMPLEADOS");
+        btnEmpleados.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnModificarClaveActionPerformed(evt);
+                btnEmpleadosActionPerformed(evt);
             }
         });
-        jPanel1.add(btnModificarClave, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 470, -1, -1));
+        jPanel1.add(btnEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 140, 70));
 
-        lblCantidadAlertas.setText("jLabel1");
-        jPanel1.add(lblCantidadAlertas, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 440, 50, 20));
+        btnClientes.setText("CLIENTES");
+        btnClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClientesActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 160, 140, 70));
+
+        btnSalir.setText("SALIR");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 330, -1, -1));
+
+        btnModificarClave1.setText("Modificar clave");
+        btnModificarClave1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarClave1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnModificarClave1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 330, -1, -1));
+
+        lblCantidadAlertas.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblCantidadAlertas.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblCantidadAlertas.setText("0");
+        jPanel1.add(lblCantidadAlertas, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 100, 50, 20));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 541, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 372, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnRentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRentasActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnRentasActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        AlertController contr = new AlertController();
-        //AlertsView form = new AlertsView(contr.obtenerAlertasEnCurso());
-        //form.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jButton5ActionPerformed
+    private void btnAlertasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlertasActionPerformed
 
-    private void btnModificarClaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarClaveActionPerformed
-        NewPasswordView form = new NewPasswordView();
+        AlertView form = new AlertView();
         form.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_btnModificarClaveActionPerformed
+    }//GEN-LAST:event_btnAlertasActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        if(UserLogin.getInstance().is_admin){
+            AdminMainView form = new AdminMainView();
+            form.setVisible(true);
+            this.dispose();
+        }
+    }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void btnEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEquipoActionPerformed
+        EquipmentView form = new EquipmentView();
+        form.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnEquipoActionPerformed
+
+    private void btnEmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmpleadosActionPerformed
         EmployeesView form = new EmployeesView();
         form.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_btnEmpleadosActionPerformed
+
+    private void btnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesActionPerformed
+        ClientsView form = new ClientsView();
+        form.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnClientesActionPerformed
+
+    private void btnModificarClave1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarClave1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnModificarClave1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -157,12 +198,13 @@ public class MainView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnModificarClave;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
+    private javax.swing.JButton btnAlertas;
+    private javax.swing.JButton btnClientes;
+    private javax.swing.JButton btnEmpleados;
+    private javax.swing.JButton btnEquipo;
+    private javax.swing.JButton btnModificarClave1;
+    private javax.swing.JButton btnRentas;
+    private javax.swing.JButton btnSalir;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblCantidadAlertas;
     // End of variables declaration//GEN-END:variables

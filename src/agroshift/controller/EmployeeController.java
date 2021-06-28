@@ -7,7 +7,7 @@ package agroshift.controller;
 
 import agroshift.model.Empleado;
 import agroshift.util.MyConnectionDB;
-import agroshift.view.UserMgmtView;
+
 import java.util.ArrayList;
 import java.sql.PreparedStatement;
 import java.sql.Connection;
@@ -135,6 +135,31 @@ public class EmployeeController {
         }
     }
     
-    //implementar borrar
-    
+    public static boolean eliminarEmpleado(String documento){
+        PreparedStatement ps = null;
+        MyConnectionDB mycon = new MyConnectionDB();
+        Connection con = mycon.getMyConnection();
+
+        try{
+
+            String sql = "DELETE FROM empleado WHERE documento = ?";            
+            ps = con.prepareStatement(sql);
+            ps.setString(1, documento);
+            ps.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Empleado eliminado con exito");
+            return true;
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,"Error "+e.getMessage());
+            return false;
+        } finally{
+            try{
+                ps.close();
+            } catch(Exception e) {}
+            try{
+                con.close();
+            } catch(Exception e){}
+        }
+    }
+
 }

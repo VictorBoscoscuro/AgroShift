@@ -50,8 +50,9 @@ public class LoginView extends javax.swing.JFrame {
         initComponents();
         setTitle("Por favor ingrese sus credenciales");
         setLocationRelativeTo(null);
-        if(cantidadAlertasRevision() > 0){
-            InitCountAlertsView form = new InitCountAlertsView();
+        int cantidadAlertas = cantidadAlertasRevision();
+        if( cantidadAlertas > 0){
+            InitCountAlertsView form = new InitCountAlertsView(cantidadAlertas);
             form.setVisible(true);
             form.setLocationRelativeTo(null);
             form.requestFocus();

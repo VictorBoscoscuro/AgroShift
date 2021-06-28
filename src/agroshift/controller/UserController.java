@@ -8,7 +8,7 @@ package agroshift.controller;
 import agroshift.model.Usuario;
 import agroshift.util.MyConnectionDB;
 
-import java.awt.List;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

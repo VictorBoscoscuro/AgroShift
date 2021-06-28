@@ -62,6 +62,42 @@ public class AlertController {
         }
     }
     
+    public static int obtenerCantidadAlertasEnCurso(){
+        ArrayList<Alerta> lista = new ArrayList<>();
+        PreparedStatement ps = null;
+        MyConnectionDB mycon = new MyConnectionDB();
+        Connection con = mycon.getMyConnection();
+        ResultSet rs = null;
+        
+        try{
+            LocalDate ld = LocalDate.now();
+            String hoy = ld.toString();
+            String sql = "SELECT COUNT(*) AS cantidad FROM alerta WHERE ? BETWEEN fecha_inicio_en_curso AND fecha_fin ORDER BY fecha_fin";
+            ps = con.prepareStatement(sql);
+            ps.setString(1, hoy);
+            rs = ps.executeQuery();
+            
+            if(rs.next()){
+                return rs.getInt("cantidad");
+            } else return 0;
+            
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Error obteniendo cantidad de alertas ");
+            return 0;
+        }
+        finally{
+            try{
+                rs.close();
+            }catch(Exception e){}
+            try{
+                ps.close();
+            }catch(Exception e){}
+            try{
+                con.close();
+            }catch(Exception e){}
+        }
+    }
+    
     public static ArrayList<Alerta> obtenerAlertasEnCurso(){
         ArrayList<Alerta> lista = new ArrayList<>();
         PreparedStatement ps = null;
@@ -105,6 +141,52 @@ public class AlertController {
             }catch(Exception e){}
             return lista;
         }
+    }
+    
+    public static ArrayList<Alerta> obtenerAlertasVencidas(){
+        ArrayList<Alerta> lista = new ArrayList<>();
+        PreparedStatement ps = null;
+        MyConnectionDB mycon = new MyConnectionDB();
+        Connection con = mycon.getMyConnection();
+        ResultSet rs = null;
+        
+        try{
+            LocalDate ld = LocalDate.now();
+            String hoy = ld.toString();
+            String sql = "SELECT * FROM alerta WHERE fecha_fin < ? AND visualizada = false ORDER BY fecha_fin";
+            ps = con.prepareStatement(sql);
+            ps.setString(1, hoy);
+            rs = ps.executeQuery();
+            
+            while(rs.next()){
+                Alerta alerta = new Alerta();
+                alerta.setId_alerta(rs.getLong("id_alerta"));
+                alerta.setDescripcion(rs.getString("descripcion"));
+                alerta.setFecha_creacion(rs.getString("fecha_creacion"));
+                alerta.setFecha_fin(rs.getString("fecha_fin"));
+                alerta.setFecha_inicio_en_curso(rs.getString("fecha_inicio_en_curso"));
+                alerta.setNombre(rs.getString("nombre_alerta"));
+                alerta.setVisualizada(rs.getBoolean("visualizada"));
+                lista.add(alerta);
+            }
+            
+            
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Error obteniendo las alertas vencidas | getAllAlerts() #");
+        }
+        finally{
+            try{
+                rs.close();
+            }catch(Exception e){}
+            try{
+                ps.close();
+            }catch(Exception e){}
+            try{
+                con.close();
+            }catch(Exception e){}
+            return lista;
+        }
+    
     }
     
     public static ArrayList<Alerta> obtenerAlertasNoEnCurso(){
@@ -258,10 +340,39 @@ public class AlertController {
             ps = con.prepareStatement(sql);
             ps.setLong(1, id_alerta);
             ps.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Alerta eliminada con exito");
             return true;
                      
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, "Error descartando alerta | deleteAlert() #0068");
+            return false;
+        }
+        finally{
+
+            try{
+                ps.close();
+            }catch(Exception e){}
+            try{
+                con.close();
+            }catch(Exception e){}
+        }
+    }
+    
+    public static boolean eliminarAlertasVencidas(){            //SIN IMPORTAR SI ESTA VISUALIZADA O NO
+        PreparedStatement ps = null;
+        MyConnectionDB mycon = new MyConnectionDB();
+        Connection con = mycon.getMyConnection();
+        
+        try{
+            String sql = "DELETE FROM alerta WHERE fecha_fin < ?";
+            ps = con.prepareStatement(sql);
+            ps.setString(1, LocalDate.now().toString());
+            ps.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Alertas vencidas eliminadas con exito");
+            return true;
+                     
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Error descartando alertas vencidas | deleteAlerts() #0068");
             return false;
         }
         finally{

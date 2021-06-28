@@ -153,7 +153,7 @@ public class SelectModelAlertView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBackMouseClicked
-        MainView form = new MainView();
+        AlertView form = new AlertView();
         form.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnBackMouseClicked

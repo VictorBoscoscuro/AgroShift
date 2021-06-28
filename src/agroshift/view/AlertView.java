@@ -183,11 +183,21 @@ public class AlertView extends javax.swing.JFrame {
 
         btnEditNoEnCursoAlert.setText("<html><center>EDITAR ALERTAS AUN NO EN CURSO<html>");
         btnEditNoEnCursoAlert.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnEditNoEnCursoAlert.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditNoEnCursoAlertActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnEditNoEnCursoAlert, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 130, 50));
 
         btnExpiredAlerts.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnExpiredAlerts.setIcon(new javax.swing.ImageIcon(getClass().getResource("/agroshift/img/expired_50.png"))); // NOI18N
         btnExpiredAlerts.setText("ALERTAS VENCIDAS");
+        btnExpiredAlerts.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnExpiredAlertsKeyPressed(evt);
+            }
+        });
         jPanel1.add(btnExpiredAlerts, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 420, -1, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/agroshift/img/fondo_alerta1.jpg"))); // NOI18N
@@ -230,6 +240,18 @@ public class AlertView extends javax.swing.JFrame {
         form.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnNewAlertActionPerformed
+
+    private void btnEditNoEnCursoAlertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditNoEnCursoAlertActionPerformed
+        NotInProgressAlertsView form = new NotInProgressAlertsView();
+        form.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnEditNoEnCursoAlertActionPerformed
+
+    private void btnExpiredAlertsKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnExpiredAlertsKeyPressed
+        ExpiredAlertsView form = new ExpiredAlertsView();
+        form.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnExpiredAlertsKeyPressed
 
     /**
      * @param args the command line arguments

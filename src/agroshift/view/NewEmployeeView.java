@@ -130,6 +130,11 @@ public class NewEmployeeView extends javax.swing.JFrame {
         });
 
         btnBack.setText("VOLVER");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
 
         btnRebootInfo.setText("REINICIAR");
         btnRebootInfo.addActionListener(new java.awt.event.ActionListener() {
@@ -449,6 +454,12 @@ public class NewEmployeeView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, validate);
         }
     }//GEN-LAST:event_btnCreateActionPerformed
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        EmployeesView form = new EmployeesView();
+        form.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnBackActionPerformed
 
     /**
      * @param args the command line arguments
