@@ -305,7 +305,8 @@ public class EquipmentView extends javax.swing.JFrame {
         int FILA = tblEquipos.getSelectedRow();
         if(FILA != -1){
             UpdateEquipmentView form = new UpdateEquipmentView(equipos.get(FILA));
-            cargarEquipoTabla();
+            form.setVisible(true);
+            this.dispose();
         }else JOptionPane.showMessageDialog(null, "Seleccione el equipo!");
     }//GEN-LAST:event_jLabel3MouseClicked
 

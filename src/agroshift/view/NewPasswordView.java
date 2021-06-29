@@ -71,6 +71,11 @@ public class NewPasswordView extends javax.swing.JFrame {
         jLabel6.setText("CONFIRMAR NUEVA CLAVE");
 
         btnBack.setText("VOLVER");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
 
         btnUpdatePassword.setText("MODIFICAR");
         btnUpdatePassword.addActionListener(new java.awt.event.ActionListener() {
@@ -147,10 +152,26 @@ public class NewPasswordView extends javax.swing.JFrame {
             rs = ps.executeQuery();
             if(rs.next()){
                 return true;
-            } else return false;
+            } else{
+                JOptionPane.showMessageDialog(null, "La clave actual ingresada no es valida");
+                return false;
+            }
             
         } catch(Exception e){
             return false;
+        } finally{
+            try {
+                rs.close();
+            } catch (Exception e) {
+            }
+            try {
+                ps.close();
+            } catch (Exception e) {
+            }
+            try {
+                con.close();
+            } catch (Exception e) {
+            }
         }
     }
     
@@ -159,7 +180,7 @@ public class NewPasswordView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null,"La nueva clave debe contener mas de 4 caracteres");
             return false;
         } else {
-            if(String.valueOf(txtNewPassword.getPassword()) == String.valueOf(txtConfirmNewPassword.getPassword())){
+            if(String.valueOf(txtNewPassword.getPassword()).equals(String.valueOf(txtConfirmNewPassword.getPassword()))){
                 return true;
             } else{
                 JOptionPane.showMessageDialog(null, "La confirmacion de la nueva clave no conicide");
@@ -168,16 +189,56 @@ public class NewPasswordView extends javax.swing.JFrame {
         }
     }
     
+    private boolean setearNuevaClave(){
+        PreparedStatement ps = null;
+        MyConnectionDB mycon = new MyConnectionDB();
+        Connection con = mycon.getMyConnection();
+        
+        try{
+            String sql = "UPDATE usuario SET clave = ? WHERE id_usuario = ?";
+            ps = con.prepareStatement(sql);
+            
+            ps.setString(1,String.valueOf(txtConfirmNewPassword.getPassword()));
+            ps.setLong(2,UserLogin.getInstance().id_user_login);
+            ps.executeUpdate();
+            return true;
+            
+        } catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Error seteando la nueva clave. La actual es la clave vigente");
+            return false;
+        } finally{
+            try {
+                ps.close();
+            } catch (Exception e) {
+            }
+            try {
+                con.close();
+            } catch (Exception e) {
+            }
+        }
+    }
+    
+    
     private void btnUpdatePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdatePasswordActionPerformed
         if(validarClaveActual()){
             if(validarNuevaClave()){
-                JOptionPane.showMessageDialog(null, "Clave modificada. Se le solicitara la proxima vez que inicie sesion");
-                MainView form = new MainView();
-                form.setVisible(true);
-                this.dispose();
+                if(setearNuevaClave()){
+                    JOptionPane.showMessageDialog(null, "Clave modificada. Se le solicitara la proxima vez que inicie sesion");
+                    MainView form = new MainView();
+                    form.setVisible(true);
+                    this.dispose();
+                } 
             }
+        } else{
+            txtCurrentPassword.requestFocus();
         }
     }//GEN-LAST:event_btnUpdatePasswordActionPerformed
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        MainView form = new MainView();
+        form.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnBackActionPerformed
 
     /**
      * @param args the command line arguments

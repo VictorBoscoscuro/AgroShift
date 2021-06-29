@@ -159,7 +159,9 @@ public class MainView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClientesActionPerformed
 
     private void btnModificarClave1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarClave1ActionPerformed
-        // TODO add your handling code here:
+        NewPasswordView form = new NewPasswordView();
+        form.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnModificarClave1ActionPerformed
 
     /**
