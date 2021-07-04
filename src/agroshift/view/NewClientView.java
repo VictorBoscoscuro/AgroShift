@@ -21,6 +21,8 @@ public class NewClientView extends javax.swing.JFrame {
     public NewClientView() {
         initComponents();
         txtDescuento.setText("0");
+        setTitle("Nuevo Cliente");
+        setLocationRelativeTo(null);
     }
 
     /**

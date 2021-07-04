@@ -21,6 +21,8 @@ public class NewEmployeeView extends javax.swing.JFrame {
      */
     public NewEmployeeView() {
         initComponents();
+        setTitle("Nuevo Empleado");
+        setLocationRelativeTo(null);
     }
 
     /**

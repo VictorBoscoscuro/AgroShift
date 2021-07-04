@@ -9,16 +9,13 @@ package agroshift.view;
  *
  * @author victo
  */
-public class VisualizeAlertView extends javax.swing.JFrame {
+public class NewGenericAlertView extends javax.swing.JFrame {
 
     /**
-     * Creates new form SeeAlertView
+     * Creates new form NewGenericAlert
      */
-    public VisualizeAlertView() {
+    public NewGenericAlertView() {
         initComponents();
-    }
-    public VisualizeAlertView(Long id_alerta){
-        
     }
 
     /**
@@ -36,11 +33,11 @@ public class VisualizeAlertView extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 638, Short.MAX_VALUE)
+            .addGap(0, 400, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 388, Short.MAX_VALUE)
+            .addGap(0, 300, Short.MAX_VALUE)
         );
 
         pack();
@@ -63,13 +60,13 @@ public class VisualizeAlertView extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VisualizeAlertView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NewGenericAlertView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VisualizeAlertView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NewGenericAlertView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VisualizeAlertView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NewGenericAlertView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VisualizeAlertView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NewGenericAlertView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -77,7 +74,7 @@ public class VisualizeAlertView extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VisualizeAlertView().setVisible(true);
+                new NewGenericAlertView().setVisible(true);
             }
         });
     }

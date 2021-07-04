@@ -24,6 +24,8 @@ public class UpdateEmployeeView extends javax.swing.JFrame {
     }
     public UpdateEmployeeView(String documento, String nombre, String numero, String rol) {
         initComponents();
+        setTitle("Actualizar Empleado");
+        setLocationRelativeTo(null);
         this.documento=documento;
         txtDocument.setText(documento);
         txtName.setText(nombre);

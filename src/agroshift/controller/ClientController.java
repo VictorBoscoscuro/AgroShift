@@ -186,4 +186,36 @@ public class ClientController {
         }
     }
     
+    public static Long obtenerIdClientePorCodigo(String codigo){
+        PreparedStatement ps = null;
+	MyConnectionDB mycon = new MyConnectionDB();
+	Connection con = mycon.getMyConnection();
+        ResultSet rs = null;
+
+	try{
+            String sql = "SELECT id_cliente FROM cliente WHERE codigo_cliente = ?";
+            ps = con.prepareStatement(sql);
+            ps.setString(1,codigo);
+
+            rs = ps.executeQuery();
+            
+            if(rs.next()){
+                return rs.getLong("id_cliente");
+            } else{
+                JOptionPane.showMessageDialog(null,"Error al obtener el id del cliente");
+                return null;
+            }
+            
+	} catch(Exception e){
+            JOptionPane.showMessageDialog(null,"Error al obtener el id del cliente -> "+e.getMessage());
+            return null;
+	} finally{
+            try{
+                ps.close();
+            } catch(Exception e){}
+            try{
+                con.close();
+            } catch(Exception e){}	
+	}
+    }
 }

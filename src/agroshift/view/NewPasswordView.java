@@ -21,6 +21,8 @@ public class NewPasswordView extends javax.swing.JFrame {
      */
     public NewPasswordView() {
         initComponents();
+        setTitle("Modificar clave actual");
+        setLocationRelativeTo(null);
     }
 
     /**

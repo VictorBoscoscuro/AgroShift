@@ -26,6 +26,8 @@ public class UpdateClientView extends javax.swing.JFrame {
     
     public UpdateClientView(Cliente cliente) {
         initComponents();
+        setTitle("Actualizar Cliente");
+        setLocationRelativeTo(null);
         this.cliente = cliente;
         txtAddress.setText(cliente.getDireccion());
         txtCode.setText(cliente.getCodigo());

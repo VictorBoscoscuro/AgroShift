@@ -6,9 +6,7 @@
 package agroshift.view;
 
 import agroshift.controller.EmployeeController;
-import agroshift.controller.UserController;
 import agroshift.model.Empleado;
-import agroshift.model.Usuario;
 import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
@@ -28,6 +26,8 @@ public class EmployeesView extends javax.swing.JFrame {
     public EmployeesView() {
         initComponents();
         agregarEmpleadosTabla();
+        setTitle("Empleados");
+        setLocationRelativeTo(null);
     }
 
     private ArrayList<Empleado> empleados = new ArrayList<>();

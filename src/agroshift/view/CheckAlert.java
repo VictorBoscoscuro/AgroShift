@@ -23,6 +23,8 @@ public class CheckAlert extends javax.swing.JFrame {
     }
     public CheckAlert(Alerta alerta) {
         initComponents();
+        setTitle("Alerta");
+        setLocationRelativeTo(null);
         this.alerta = alerta;
         if(AlertController.setearAlertaVisualizada(alerta.getId_alerta())){
             lblName.setText("<html><center>"+alerta.getNombre()+"<html>");

@@ -20,6 +20,8 @@ public class MainView extends javax.swing.JFrame {
     public MainView() {
         initComponents();
         lblCantidadAlertas.setText(String.valueOf(AlertController.obtenerCantidadAlertasEnCurso()));
+        setTitle("Menu Principal");
+        setLocationRelativeTo(null);
     }
 
     /**

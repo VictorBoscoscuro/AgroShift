@@ -30,6 +30,8 @@ public class ClientsView extends javax.swing.JFrame {
     public ClientsView() {
         initComponents();
         agregarClientesTabla();
+        setTitle("Clientes");
+        setLocationRelativeTo(null);
     }
 
     private ArrayList<Empleado> empleados = new ArrayList<>();
