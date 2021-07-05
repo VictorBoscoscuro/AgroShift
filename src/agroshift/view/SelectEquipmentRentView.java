@@ -5,7 +5,16 @@
  */
 package agroshift.view;
 
+import agroshift.controller.EquipmentController;
+import agroshift.model.EquipoAgricola;
 import agroshift.model.Rent;
+import java.awt.Color;
+import java.awt.Font;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -18,11 +27,91 @@ public class SelectEquipmentRentView extends javax.swing.JFrame {
      */
     public SelectEquipmentRentView() {
         initComponents();
+        cargarEquipoTabla();
     }
     public SelectEquipmentRentView(Rent renta) {
         initComponents();
+        this.renta = renta;
+        cargarEquipoTabla();
+        cargarTipos();
+        setTitle("Seleccionar equipo");
+        setLocationRelativeTo(null);
     }
 
+    
+    private void cargarTipos(){
+        ArrayList<String> tipos = EquipmentController.obtenerTodosTipos();
+        for(String tipo:tipos){
+            cbxTipo.addItem(tipo);
+        }
+    }
+    private Rent renta;
+    
+    private void formatoTabla(){
+                
+        int[] weights = {25,25,20,25};
+            
+        for(int i = 0; i < tblEquipos.getColumnCount(); i++){
+            tblEquipos.getColumnModel().getColumn(i).setPreferredWidth(weights[i]);
+        }
+        
+        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();
+        headerRenderer.setBackground(new Color(0, 139, 139));
+        headerRenderer.setForeground(Color.BLACK);
+        headerRenderer.setFont(new Font("Segoe UI",Font.BOLD,14));
+        headerRenderer.setOpaque(true);
+        headerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+  
+        for (int i = 0; i < tblEquipos.getModel().getColumnCount(); i++) {          //Recorro y se lo aplico a cada header
+            tblEquipos.getColumnModel().getColumn(i).setHeaderRenderer(headerRenderer);    
+        }
+        
+        DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
+        cellRenderer.setBackground(new Color(244, 244, 230));
+        cellRenderer.setForeground(Color.BLACK);
+        cellRenderer.setFont(new Font("Segoe UI",Font.PLAIN,13));
+        cellRenderer.setOpaque(true);
+        cellRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+        
+        for (int i = 0; i < tblEquipos.getColumnCount(); i++) {          //Recorro y se lo aplico a cada header
+            tblEquipos.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);    
+        }
+    }
+    
+    private void cargarEquipoTabla(){
+        
+        int numberColumns = 4;
+        try{
+            DefaultTableModel model = new DefaultTableModel(){
+                @Override
+                public boolean isCellEditable(int i, int i1){
+                    return false;
+                }
+            };
+            tblEquipos.setModel(model);
+            model.addColumn("Tipo");
+            model.addColumn("Marca");
+            model.addColumn("Codigo");
+            model.addColumn("Estado");
+            
+            formatoTabla();
+            
+            for(EquipoAgricola equipo: EquipmentController.obtenerTodosEquiposDisponibles(renta.getFecha_inicio(), renta.getFecha_fin())){
+                Object[] rows = new Object[numberColumns];
+                rows[0] = EquipmentController.obtenerTipoPorId(equipo.getId_tipo());
+                rows[1] = equipo.getMarca();
+                rows[2] = equipo.getCodigo();
+                rows[3] = EquipmentController.obtenerEstadoPorId(equipo.getId_estado());
+                model.addRow(rows);
+            }
+                
+        } catch(Exception e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null,"Error al cargar los clientes");
+        }
+    
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -58,7 +147,7 @@ public class SelectEquipmentRentView extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Tipo", "Marca", "Modelo", "Codigo"
+                "Tipo", "Marca", "Codigo", "Modelo"
             }
         ) {
             Class[] types = new Class [] {
@@ -93,10 +182,25 @@ public class SelectEquipmentRentView extends javax.swing.JFrame {
         jLabel1.setText("ELEGIR EQUIPO");
 
         btnSelectEmployee.setText("<html><center>Seleccionar Empleado responsable</html>");
+        btnSelectEmployee.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSelectEmployeeActionPerformed(evt);
+            }
+        });
 
         btnSelectOtherEquipment.setText("<html><center>Agregar otro equipo</html>");
+        btnSelectOtherEquipment.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSelectOtherEquipmentActionPerformed(evt);
+            }
+        });
 
         btnSelectCost.setText("<html><center>Continuar sin elegir responsable</html>");
+        btnSelectCost.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSelectCostActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("VOLVER");
 
@@ -164,6 +268,44 @@ public class SelectEquipmentRentView extends javax.swing.JFrame {
 
     private void btnFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilterActionPerformed
     }//GEN-LAST:event_btnFilterActionPerformed
+
+    private void btnSelectEmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectEmployeeActionPerformed
+        int FILA = tblEquipos.getSelectedRow();
+        if(FILA != -1){
+            Long idEquipo = EquipmentController.obtenerIdEquipoPorCodigo(tblEquipos.getValueAt(FILA, 2).toString());
+            if(idEquipo != 0l){
+                renta.getEquipos().add(idEquipo);
+                SelectEmployeeRentView form = new SelectEmployeeRentView(renta);
+                form.setVisible(true);
+                this.dispose();
+            } else JOptionPane.showMessageDialog(null, "Error");
+
+        } else JOptionPane.showMessageDialog(null, "Elegir un equipo primero");
+    }//GEN-LAST:event_btnSelectEmployeeActionPerformed
+
+    private void btnSelectOtherEquipmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectOtherEquipmentActionPerformed
+        int FILA = tblEquipos.getSelectedRow();
+        if(FILA != -1){
+           
+            renta.getEquipos().add(EquipmentController.obtenerIdEquipoPorCodigo(tblEquipos.getValueAt(FILA, 3).toString()));
+            SelectEquipmentRentView form = new SelectEquipmentRentView(renta);
+            form.setVisible(true);
+            this.dispose();
+            
+        } else JOptionPane.showMessageDialog(null, "Elegir un equipo primero");
+    }//GEN-LAST:event_btnSelectOtherEquipmentActionPerformed
+
+    private void btnSelectCostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectCostActionPerformed
+        int FILA = tblEquipos.getSelectedRow();
+        if(FILA != -1){
+
+            renta.getEquipos().add(EquipmentController.obtenerIdEquipoPorCodigo(tblEquipos.getValueAt(FILA, 3).toString()));
+            SetCostRentView form = new SetCostRentView(renta);
+            form.setVisible(true);
+            this.dispose();
+            
+        } else JOptionPane.showMessageDialog(null, "Elegir un equipo primero");
+    }//GEN-LAST:event_btnSelectCostActionPerformed
 
     /**
      * @param args the command line arguments

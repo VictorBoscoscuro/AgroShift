@@ -5,6 +5,17 @@
  */
 package agroshift.view;
 
+import agroshift.controller.ClientController;
+import agroshift.controller.EmployeeController;
+import agroshift.controller.RentController;
+import agroshift.model.Rent;
+import java.awt.Color;
+import java.awt.Font;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author victo
@@ -16,8 +27,70 @@ public class RentsView extends javax.swing.JFrame {
      */
     public RentsView() {
         initComponents();
+        cargarRentasTabla();
+        setTitle("Rentas");
+        setLocationRelativeTo(null);
     }
 
+    private ArrayList<Rent> rentas_activas = new ArrayList<>();
+    
+    private void formatoTabla(){
+
+        int[] weights = {35,10,10,35,10};
+            
+        for(int i = 0; i < tblRentasActivas.getColumnCount(); i++){
+            tblRentasActivas.getColumnModel().getColumn(i).setPreferredWidth(weights[i]);
+        }
+        
+        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();
+        headerRenderer.setBackground(new Color(0, 139, 139));
+        headerRenderer.setForeground(Color.BLACK);
+        headerRenderer.setFont(new Font("Segoe UI",Font.BOLD,14));
+        headerRenderer.setOpaque(true);
+        headerRenderer.setForeground(Color.BLACK);
+  
+        for (int i = 0; i < tblRentasActivas.getModel().getColumnCount(); i++) {          //Recorro y se lo aplico a cada header
+            tblRentasActivas.getColumnModel().getColumn(i).setHeaderRenderer(headerRenderer);    
+        }
+    }
+    
+    private void cargarRentasTabla(){
+        
+        int numberColumns = 5;
+        try{
+            DefaultTableModel model = new DefaultTableModel(){
+                @Override
+                public boolean isCellEditable(int i, int i1){
+                    return false;
+                }
+            };
+            tblRentasActivas.setModel(model);
+            model.addColumn("Cliente");
+            model.addColumn("Inicio");
+            model.addColumn("Fin");
+            model.addColumn("Responsable");
+            model.addColumn("Cant. equipos");
+            
+            formatoTabla();
+            
+            rentas_activas = RentController.obtenerRentasActuales();
+            
+            for(Rent rent: rentas_activas){
+                Object[] rows = new Object[numberColumns];
+                rows[0] = ClientController.obtenerClientePorId(rent.getId_cliente()).getNombre();
+                rows[1] = rent.getFecha_inicio();
+                rows[2] = rent.getFecha_fin();
+                rows[3] = EmployeeController.obtenerEmpleadoPorId(rent.getId_empleado()).getNombre();
+                rows[4] = rent.getEquipos().size();
+                model.addRow(rows);
+            }
+                
+        } catch(Exception e){
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null,"Error al cargar las rentas");
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -29,8 +102,13 @@ public class RentsView extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         btnSeeEquipments = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        btnRentasHistorial = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblRentasActivas = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -38,28 +116,71 @@ public class RentsView extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnSeeEquipments.setText("<html><center>Ver equipos de la renta</html>");
-        jPanel1.add(btnSeeEquipments, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 120, 50));
+        btnSeeEquipments.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSeeEquipmentsActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnSeeEquipments, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 360, 120, 50));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jButton1.setText("ATRAS");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 550, 120, 50));
+
+        jButton2.setText("<html><center>RENTAS AUN NO COMENZADAS</html>");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 550, 120, 50));
+
+        jButton3.setText("NUEVA RENTA");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 550, 120, 50));
+
+        btnRentasHistorial.setText("<html><center>RENTAS HISTORIAL</html>");
+        btnRentasHistorial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRentasHistorialActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnRentasHistorial, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 550, 130, 50));
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("RENTAS EN CURSO");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 45, 940, 40));
+
+        tblRentasActivas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Cliente", "Inicio", "Fin", "Cant. Equipos"
+                "Cliente", "Inicio", "Fin", "Responsable", "Cant. Equipos"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -70,10 +191,10 @@ public class RentsView extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTable1.setRowHeight(26);
-        jScrollPane1.setViewportView(jTable1);
+        tblRentasActivas.setRowHeight(26);
+        jScrollPane1.setViewportView(tblRentasActivas);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 70, 770, 230));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 940, 230));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/agroshift/img/fondo_maquinaria4.jpg"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -91,6 +212,32 @@ public class RentsView extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnSeeEquipmentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeeEquipmentsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSeeEquipmentsActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        PrincipalNewRentView form = new PrincipalNewRentView();
+        form.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void btnRentasHistorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRentasHistorialActionPerformed
+        HistorialRentView form = new HistorialRentView();
+        form.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnRentasHistorialActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        MainView form = new MainView();
+        form.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -128,10 +275,15 @@ public class RentsView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnRentasHistorial;
     private javax.swing.JButton btnSeeEquipments;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tblRentasActivas;
     // End of variables declaration//GEN-END:variables
 }

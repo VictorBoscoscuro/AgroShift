@@ -19,6 +19,8 @@ public class PrincipalNewRentView extends javax.swing.JFrame {
      */
     public PrincipalNewRentView() {
         initComponents();
+        setTitle("Rentas");
+        setLocationRelativeTo(null);
         
     }
     
@@ -145,12 +147,12 @@ public class PrincipalNewRentView extends javax.swing.JFrame {
     
     private void btnSelectClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectClientActionPerformed
         if(validarFechas()){
-            renta.setFecha_fin(txtInicio.getText());
+            renta.setFecha_inicio(txtInicio.getText());
             renta.setFecha_fin(txtFin.getText());
             SelectClientRentView form = new SelectClientRentView(renta);
             form.setVisible(true);
             this.dispose();
-        }else JOptionPane.showMessageDialog(null, "");
+        }else JOptionPane.showMessageDialog(null, "Error validando fechas");
     }//GEN-LAST:event_btnSelectClientActionPerformed
 
     /**

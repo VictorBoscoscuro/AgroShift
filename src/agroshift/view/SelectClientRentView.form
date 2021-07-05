@@ -123,6 +123,9 @@
               <Connection code="&quot;&lt;html&gt;&lt;center&gt;Volver atras&lt;/html&gt;&quot;" type="code"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSelectEquipment1ActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

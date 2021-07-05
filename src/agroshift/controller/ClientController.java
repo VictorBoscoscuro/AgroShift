@@ -218,4 +218,45 @@ public class ClientController {
             } catch(Exception e){}	
 	}
     }
+    
+     public static Cliente obtenerClientePorId(Long id_cliente){
+        PreparedStatement ps = null;
+	MyConnectionDB mycon = new MyConnectionDB();
+	Connection con = mycon.getMyConnection();
+        ResultSet rs = null;
+
+	try{
+            String sql = "SELECT * FROM cliente WHERE id_cliente = ?";
+            ps = con.prepareStatement(sql);
+            ps.setLong(1,id_cliente);
+
+            rs = ps.executeQuery();
+            Cliente cliente = new Cliente();
+            if(rs.next()){
+                
+                cliente.setCodigo(rs.getString("codigo_cliente"));
+                cliente.setDescuento(rs.getInt("descuento"));
+                cliente.setDireccion(rs.getString("direccion"));
+                cliente.setId_cliente(id_cliente);
+                cliente.setMail(rs.getString("mail"));
+                cliente.setMas_detalles(rs.getString("mas_informacion"));
+                cliente.setNombre(rs.getString("nombre"));
+                return cliente;
+            } else{
+                JOptionPane.showMessageDialog(null,"Error al obtener el id del cliente");
+                return null;
+            }
+            
+	} catch(Exception e){
+            JOptionPane.showMessageDialog(null,"Error al obtener el id del cliente -> "+e.getMessage());
+            return null;
+	} finally{
+            try{
+                ps.close();
+            } catch(Exception e){}
+            try{
+                con.close();
+            } catch(Exception e){}	
+	}
+    }
 }

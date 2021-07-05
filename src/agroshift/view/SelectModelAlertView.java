@@ -152,7 +152,9 @@ public class SelectModelAlertView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBackMouseClicked
 
     private void btnInicioRentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioRentaActionPerformed
-        // TODO add your handling code here:
+        SelectRentAlertView form = new SelectRentAlertView();
+        form.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnInicioRentaActionPerformed
 
     private void btnPersonalizadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPersonalizadaActionPerformed

@@ -110,8 +110,8 @@
               <Table columnCount="4" rowCount="10">
                 <Column editable="false" title="Tipo" type="java.lang.String"/>
                 <Column editable="false" title="Marca" type="java.lang.String"/>
-                <Column editable="false" title="Modelo" type="java.lang.String"/>
                 <Column editable="false" title="Codigo" type="java.lang.String"/>
+                <Column editable="false" title="Modelo" type="java.lang.String"/>
               </Table>
             </Property>
             <Property name="rowHeight" type="int" value="27"/>
@@ -158,6 +158,9 @@
           <Connection code="&quot;&lt;html&gt;&lt;center&gt;Seleccionar Empleado responsable&lt;/html&gt;&quot;" type="code"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSelectEmployeeActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnSelectOtherEquipment">
       <Properties>
@@ -165,6 +168,9 @@
           <Connection code="&quot;&lt;html&gt;&lt;center&gt;Agregar otro equipo&lt;/html&gt;&quot;" type="code"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSelectOtherEquipmentActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnSelectCost">
       <Properties>
@@ -172,6 +178,9 @@
           <Connection code="&quot;&lt;html&gt;&lt;center&gt;Continuar sin elegir responsable&lt;/html&gt;&quot;" type="code"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSelectCostActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jButton4">
       <Properties>

@@ -4,36 +4,29 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/view/LoginView.java</file>
+            <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/view/HistorialRentView.java</file>
             <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/view/AdminMainView.java</file>
-            <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/view/UpdateClientView.java</file>
+            <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/view/SetCostRentView.java</file>
+            <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/view/SelectRentAlertView.java</file>
             <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/view/RentsView.java</file>
+            <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/view/SelectEmployeeRentView.java</file>
             <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/view/NewPasswordView.java</file>
             <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/view/SelectEquipmentRentView.java</file>
             <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/view/NotInProgressAlertsView.java</file>
             <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/view/MainView.java</file>
-            <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/controller/ClientController.java</file>
-            <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/util/MyConnectionDB.java</file>
-            <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/controller/AlertController.java</file>
-            <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/AgroShift.java</file>
             <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/view/InitCountAlertsView.java</file>
-            <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/view/UserMgmtView.java</file>
+            <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/AgroShift.java</file>
             <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/view/PrincipalNewRentView.java</file>
             <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/controller/RentController.java</file>
             <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/view/EquipmentView.java</file>
             <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/view/CheckAlert.java</file>
-            <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/view/UpdateEmployeeView.java</file>
             <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/view/SelectModelAlertView.java</file>
             <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/view/AlertView.java</file>
             <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/view/ExpiredAlertsView.java</file>
             <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/view/NewEquipmentView.java</file>
-            <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/view/UpdateEquipmentView.java</file>
-            <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/controller/EmployeeController.java</file>
-            <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/view/NewGenericAlertView.java</file>
             <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/view/SelectClientRentView.java</file>
             <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/view/ClientsView.java</file>
             <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/view/NewEmployeeView.java</file>
-            <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/model/Rent.java</file>
-            <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/view/EmployeesView.java</file>
             <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/view/NewCustomAlertView.java</file>
             <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/view/NewClientView.java</file>
             <file>file:/C:/Users/victo/Documents/NetBeansProjects/AgroShift/src/agroshift/controller/EquipmentController.java</file>

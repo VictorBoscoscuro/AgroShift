@@ -34,6 +34,7 @@ public class MainView extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        lblCantidadAlertas = new javax.swing.JLabel();
         btnRentas = new javax.swing.JButton();
         btnAlertas = new javax.swing.JButton();
         btnEquipo = new javax.swing.JButton();
@@ -41,52 +42,69 @@ public class MainView extends javax.swing.JFrame {
         btnClientes = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
         btnModificarClave1 = new javax.swing.JButton();
-        lblCantidadAlertas = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(153, 255, 153));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        lblCantidadAlertas.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        lblCantidadAlertas.setForeground(new java.awt.Color(255, 255, 255));
+        lblCantidadAlertas.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblCantidadAlertas.setText("0");
+        jPanel1.add(lblCantidadAlertas, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 420, 70, 40));
+
+        btnRentas.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
+        btnRentas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/agroshift/img/rent_ico60.png"))); // NOI18N
         btnRentas.setText("RENTAS");
         btnRentas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRentasActionPerformed(evt);
             }
         });
-        jPanel1.add(btnRentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 40, 140, 70));
+        jPanel1.add(btnRentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 110, 160, 70));
 
+        btnAlertas.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
+        btnAlertas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/agroshift/img/alert_ico60.png"))); // NOI18N
         btnAlertas.setText("ALERTAS");
+        btnAlertas.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnAlertas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAlertasActionPerformed(evt);
             }
         });
-        jPanel1.add(btnAlertas, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 120, 96, 40));
+        jPanel1.add(btnAlertas, new org.netbeans.lib.awtextra.AbsoluteConstraints(776, 460, 160, 60));
 
-        btnEquipo.setText("EQUIPO AGRÍCOLA");
+        btnEquipo.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
+        btnEquipo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/agroshift/img/equip_ico60.png"))); // NOI18N
+        btnEquipo.setText("<html><center>EQUIPO AGRÍCOLA</html>");
         btnEquipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEquipoActionPerformed(evt);
             }
         });
-        jPanel1.add(btnEquipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, 140, 70));
+        jPanel1.add(btnEquipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 110, 160, 70));
 
-        btnEmpleados.setText("EMPLEADOS");
+        btnEmpleados.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
+        btnEmpleados.setIcon(new javax.swing.ImageIcon(getClass().getResource("/agroshift/img/employee_ico60.png"))); // NOI18N
+        btnEmpleados.setText("PERSONAL");
         btnEmpleados.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEmpleadosActionPerformed(evt);
             }
         });
-        jPanel1.add(btnEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 140, 70));
+        jPanel1.add(btnEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 310, 160, 70));
 
+        btnClientes.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
+        btnClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/agroshift/img/client_ico60.png"))); // NOI18N
         btnClientes.setText("CLIENTES");
         btnClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnClientesActionPerformed(evt);
             }
         });
-        jPanel1.add(btnClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 160, 140, 70));
+        jPanel1.add(btnClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 310, 160, 70));
 
         btnSalir.setText("SALIR");
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -94,37 +112,38 @@ public class MainView extends javax.swing.JFrame {
                 btnSalirActionPerformed(evt);
             }
         });
-        jPanel1.add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 330, -1, -1));
+        jPanel1.add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 500, -1, -1));
 
+        btnModificarClave1.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
         btnModificarClave1.setText("Modificar clave");
         btnModificarClave1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnModificarClave1ActionPerformed(evt);
             }
         });
-        jPanel1.add(btnModificarClave1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 330, -1, -1));
+        jPanel1.add(btnModificarClave1, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 20, -1, -1));
 
-        lblCantidadAlertas.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblCantidadAlertas.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblCantidadAlertas.setText("0");
-        jPanel1.add(lblCantidadAlertas, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 100, 50, 20));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/agroshift/img/fondo_maquinaria5.jpg"))); // NOI18N
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 541, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 372, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRentasActionPerformed
-        // TODO add your handling code here:
+        RentsView form = new RentsView();
+        form.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnRentasActionPerformed
 
     private void btnAlertasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlertasActionPerformed
@@ -209,6 +228,7 @@ public class MainView extends javax.swing.JFrame {
     private javax.swing.JButton btnModificarClave1;
     private javax.swing.JButton btnRentas;
     private javax.swing.JButton btnSalir;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblCantidadAlertas;
     // End of variables declaration//GEN-END:variables

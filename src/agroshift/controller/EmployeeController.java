@@ -162,4 +162,82 @@ public class EmployeeController {
         }
     }
 
+    public static Long obtenerIdEmpleadoPorDocumento(String documento){
+        
+    PreparedStatement ps = null;
+        MyConnectionDB mycon = new MyConnectionDB();
+        Connection con = mycon.getMyConnection();
+        ResultSet rs = null;
+        try{            
+            String sql = "SELECT * FROM empleado WHERE documento = ?";
+            ps = con.prepareStatement(sql);
+            ps.setString(1, documento);
+            rs = ps.executeQuery();
+            
+            if(rs.next()){
+                return rs.getLong("id_empleado");
+            }else{
+                JOptionPane.showMessageDialog(null, "Error obteniendo id de empleado por documento");
+                return null;
+            }
+            
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,"Error "+e.getMessage());
+            return null;
+        } finally{
+            try{
+                rs.close(); 
+            } catch(Exception e){}
+            try{
+                ps.close();
+            } catch(Exception e) {}
+            try{
+                con.close();
+            } catch(Exception e){}
+        }
+    }
+    
+    public static Empleado obtenerEmpleadoPorId(Long id){
+        
+        PreparedStatement ps = null;
+        MyConnectionDB mycon = new MyConnectionDB();
+        Connection con = mycon.getMyConnection();
+        ResultSet rs = null;
+        try{            
+            String sql = "SELECT * FROM empleado WHERE id_empleado = ?";
+            ps = con.prepareStatement(sql);
+            ps.setLong(1, id);
+            rs = ps.executeQuery();
+            
+            if(rs.next()){
+                Empleado empleado = new Empleado();
+                empleado.setDocumento(rs.getString("documento"));
+                empleado.setAlta(rs.getString("fecha_alta"));
+                empleado.setNacimiento(rs.getString("fecha_nacimiento"));
+                empleado.setId_empleado(rs.getLong("id_empleado"));
+                empleado.setNombre(rs.getString("nombre_completo"));
+                empleado.setNumero(rs.getString("numero_empleado"));
+                empleado.setRol(rs.getString("rol"));
+                return empleado;         
+            }else{
+                JOptionPane.showMessageDialog(null, "Error obteniendo id de empleado por documento");
+                return new Empleado();
+            }
+                  
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,"Error "+e.getMessage());
+            return null;
+        } finally{
+            try{
+                rs.close(); 
+            } catch(Exception e){}
+            try{
+                ps.close();
+            } catch(Exception e) {}
+            try{
+                con.close();
+            } catch(Exception e){}
+        }
+    }
 }

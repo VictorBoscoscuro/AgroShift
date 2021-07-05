@@ -16,8 +16,8 @@ public class Empleado {
     private Long id_empleado;
     private String documento;
     private String nombre;
-    private LocalDate alta;
-    private LocalDate nacimiento;
+    private String alta;
+    private String nacimiento;
     private String rol;
     private String numero;
 
@@ -53,19 +53,19 @@ public class Empleado {
         this.nombre = nombre;
     }
 
-    public LocalDate getAlta() {
+    public String getAlta() {
         return alta;
     }
 
-    public void setAlta(LocalDate alta) {
+    public void setAlta(String alta) {
         this.alta = alta;
     }
 
-    public LocalDate getNacimiento() {
+    public String getNacimiento() {
         return nacimiento;
     }
 
-    public void setNacimiento(LocalDate nacimiento) {
+    public void setNacimiento(String nacimiento) {
         this.nacimiento = nacimiento;
     }
 

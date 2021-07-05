@@ -44,7 +44,6 @@ public class CheckAlert extends javax.swing.JFrame {
         btnSeguirMostrando.setVisible(false);
         lblVencimientoText.setVisible(false);
         lblVencimiento.setVisible(false);
-        btnExtendExpire.setVisible(false);
         this.alerta = alerta;
         if(AlertController.setearAlertaVisualizada(alerta.getId_alerta())){
             lblName.setText("<html><center>"+alerta.getNombre()+"<html>");
@@ -74,7 +73,6 @@ public class CheckAlert extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         lblName = new javax.swing.JLabel();
         lblDescription = new javax.swing.JLabel();
-        btnExtendExpire = new javax.swing.JButton();
         btnDeleteAlert = new javax.swing.JButton();
         btnSeguirMostrando = new javax.swing.JButton();
         lblVencimientoText = new javax.swing.JLabel();
@@ -92,8 +90,6 @@ public class CheckAlert extends javax.swing.JFrame {
         lblDescription.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblDescription.setText("Descripcion");
         lblDescription.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-
-        btnExtendExpire.setText("EXTENDER VENCIMIENTO");
 
         btnDeleteAlert.setText("DESCARTAR ALERTA");
         btnDeleteAlert.addActionListener(new java.awt.event.ActionListener() {
@@ -126,15 +122,13 @@ public class CheckAlert extends javax.swing.JFrame {
                     .addComponent(lblName)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnDeleteAlert)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 172, Short.MAX_VALUE)
-                        .addComponent(btnSeguirMostrando, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(43, 43, 43)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 386, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(lblVencimientoText)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblVencimiento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(btnExtendExpire, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(lblVencimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnSeguirMostrando, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -150,7 +144,6 @@ public class CheckAlert extends javax.swing.JFrame {
                     .addComponent(lblVencimiento))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnExtendExpire, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnDeleteAlert, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSeguirMostrando, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
@@ -232,7 +225,6 @@ public class CheckAlert extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDeleteAlert;
-    private javax.swing.JButton btnExtendExpire;
     private javax.swing.JButton btnSeguirMostrando;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblDescription;

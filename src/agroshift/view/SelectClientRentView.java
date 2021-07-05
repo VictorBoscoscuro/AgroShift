@@ -31,6 +31,7 @@ public class SelectClientRentView extends javax.swing.JFrame {
         initComponents();
         agregarClientesTabla();
         this.renta = renta;
+        setTitle("Seleccionar Cliente");
     }
     private Rent renta;
 
@@ -158,6 +159,11 @@ public class SelectClientRentView extends javax.swing.JFrame {
         jLabel1.setText("ELEGIR CLIENTE");
 
         btnSelectEquipment1.setText("<html><center>Volver atras</html>");
+        btnSelectEquipment1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSelectEquipment1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -214,6 +220,12 @@ public class SelectClientRentView extends javax.swing.JFrame {
             }
         } else JOptionPane.showMessageDialog(null, "Elegir el cliente primero");
     }//GEN-LAST:event_btnSelectEquipmentActionPerformed
+
+    private void btnSelectEquipment1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectEquipment1ActionPerformed
+        RentsView form = new RentsView();
+        form.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnSelectEquipment1ActionPerformed
 
     /**
      * @param args the command line arguments

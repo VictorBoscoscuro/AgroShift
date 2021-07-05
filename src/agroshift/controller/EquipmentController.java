@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.sql.ResultSet;
+import java.time.LocalDate;
 import javax.swing.JOptionPane;
 
 /**
@@ -389,4 +390,76 @@ public class EquipmentController {
         }
     }
     
+    public static Long obtenerIdEquipoPorCodigo(String codigo){
+        PreparedStatement ps = null;
+        MyConnectionDB mycon = new MyConnectionDB();
+        Connection con = mycon.getMyConnection();
+        ResultSet rs = null;
+        try{
+            String sql = "SELECT * FROM equipo_agricola WHERE codigo_equipo = ?";
+            ps = con.prepareStatement(sql);
+            ps.setString(1, codigo);
+            rs = ps.executeQuery();
+           
+            if(rs.next()){
+                return rs.getLong("id_equipo");
+            } else{
+                JOptionPane.showMessageDialog(null, "Error al obtener id de equipo por codigo"); //NO DEBERIA PASAR
+                return 0l;
+            }
+        } catch(Exception e){
+                JOptionPane.showMessageDialog(null, "Error al obtener id de equipo por codigo"); //NO DEBERIA PASAR
+            return 0l;
+        } finally{
+            try{
+                rs.close();
+            } catch(Exception e){}
+            try{
+                ps.close();
+            } catch(Exception e){}
+            try{
+                con.close();
+            } catch(Exception e){}
+        }
+    }
+    
+    public static ArrayList<EquipoAgricola> obtenerTodosEquiposDisponibles(String inicio, String fin){
+        PreparedStatement ps = null;
+        MyConnectionDB mycon = new MyConnectionDB();
+        Connection con = mycon.getMyConnection();
+        ResultSet rs = null;
+        ArrayList<EquipoAgricola> equipos = new ArrayList<>();
+        try{
+            String sql = "SELECT * FROM equipo_agricola eq WHERE eq.id_estado IN(1,2) AND NOT EXISTS (SELECT * FROM renta r INNER JOIN renta_equipo re ON(r.id_renta = re.renta) WHERE re.equipo = eq.id_equipo)"; //Implementar que valide la fecha enviada, asi como esta valida que no exista ninguna de ese equipo directamente
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+           
+            while(rs.next()){
+                EquipoAgricola equipo = new EquipoAgricola();
+                equipo.setCodigo(rs.getString("codigo_equipo"));
+                equipo.setDescripcion(rs.getString("descripcion"));
+                equipo.setId_equipo(rs.getLong("id_equipo"));
+                equipo.setId_estado(rs.getLong("id_estado"));
+                equipo.setId_tipo(rs.getLong("id_tipo"));
+                equipo.setMarca(rs.getString("marca"));
+                equipo.setModelo(rs.getString("modelo"));
+                equipo.setAdquisicion(rs.getDate("fecha_adquisicion").toString());
+                equipos.add(equipo);
+            }
+            return equipos;
+        } catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Error al obtener los equipos");
+            return equipos;
+        } finally{
+            try{
+                rs.close();
+            } catch(Exception e){}
+            try{
+                ps.close();
+            } catch(Exception e){}
+            try{
+                con.close();
+            } catch(Exception e){}
+        }
+    }
 }

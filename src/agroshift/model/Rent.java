@@ -5,6 +5,8 @@
  */
 package agroshift.model;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author victo
@@ -16,7 +18,7 @@ public class Rent {
     private Double costo;
     private Long id_cliente;
     private Long id_empleado;
-    private Integer cantidad_equipos;
+    private ArrayList<Long> equipos = new ArrayList<>();
 
     public Long getId_renta() {
         return id_renta;
@@ -66,13 +68,15 @@ public class Rent {
         this.id_empleado = id_empleado;
     }
 
-    public Integer getCantidad_equipos() {
-        return cantidad_equipos;
+    public ArrayList<Long> getEquipos() {
+        return equipos;
     }
 
-    public void setCantidad_equipos(Integer cantidad_equipos) {
-        this.cantidad_equipos = cantidad_equipos;
+    public void setEquipos(ArrayList<Long> equipos) {
+        this.equipos = equipos;
     }
+
+    
     
     
 }
